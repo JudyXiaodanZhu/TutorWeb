@@ -13,10 +13,10 @@
 
 ## List of the user interactions
 
-For different users, there are different kinds of user interactions. All users can search for tutors based on tutor name/ course /rating, create user profile, view tutor profile, post threads under a course and chat with other students/tutors who want to connect and set times and places to meet up. Users can post in forums regarding a specific course that allows them to get answers from other students (not tutors) quickly.
+For different users, there are different kinds of user interactions. All users can search for tutors based on tutor name/ course code, create user profile, view tutor profile, post threads under a course and chat with other students/tutors who want to connect and set times and places to meet up. Users can post in forums regarding a specific course that allows them to get answers from other students (not tutors) quickly.
  * Admin: The admin user (the project team) can edit and delete postings under the courses, manage all user profiles and chat with other users to handle user complaints. For example, if a conflict arise between the student and the tutor, the admin must intervine and help resolve the conflict. 
- * Tutor: Users can sign up to be a tutor by creating a tutor profile which showcases their qualifications for a course.
- * Students: Students can edit their own profile and sign up to be a tutor whenever they like. 
+ * Tutor: Users can sign up to be a tutor by creating a tutor account which showcases their qualifications for a course.
+ * Students: Students can edit their own profile.
 
 
 ## Getting data into application
@@ -33,38 +33,60 @@ For different users, there are different kinds of user interactions. All users c
 
 ![Alt](sketches/Index.png)
 
+This is the front page when the user opens the website.
+
 ### Sign up
 
 ![Alt](sketches/Sign up.png)
+
+When the user clicks on "sign up" button on the "start-up" page, the pop-up appears. Users can choose to be student, tutor or admin. Then they enter their username and password.
 
 ### Upon logged in as student
 
 ![Alt](sketches/Logged in student.png)
 
+The main page when a student user logins on displays the courses they subscribed on the left panel, other students who are online or offline on the right panel. In the middle, they can post a question about a certain subject under that subject's forum. When they click "post", the message will be posted to the respective subject page.
+
+Students can search for tutor name/ course code/ 
+
 ### Upon logged in as tutor
 
 ![Alt](sketches/Logged in tutor.png)
+
+Similar to the student main page, tutors can post their profile under the subject page.
 
 ### Upon logged in as admin
 
 ![Alt](sketches/Logged in admin.png)
 
+The admin has a different main page. They can see a list of all courses on the left and click on it to edit/delete all posts under that course page. They can also edit/delete user profile on the right.
+
 ### Search
 
 ![Alt](sketches/Search.png)
+
+When any user search for a course code and a related course is found, they can add that course to the "forum" which is the left panel that shows up on the users' main page. Also, a list of tutors for this course is listed beow. 
 
 ### Profile
 
 ![Alt](sketches/Profile.png)
 
+When the users click on the name of the tutor/student, their profile appears. Students can choose of follow that tutor/student.
+
 ### Edit profile
 
 ![Alt](sketches/Edit profile.png)
+
+This is the editing panel where users update information about their profile.
 
 ### Course forum
 
 ![Alt](sketches/Course.png)
 
+The forum is accessed by clicking on the course on the left panel. All threads posted by students and tutors show up.
+
 ### Private chat
 
 ![Alt](sketches/Chat.png)
+
+The view to chat with other users.
