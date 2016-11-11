@@ -47,7 +47,7 @@ When the user clicks on "sign up" button on the "start-up" page, the pop-up appe
 
 The main page when a student user logins on displays the courses they subscribed on the left panel, other students who are online or offline on the right panel. In the middle, they can post a question about a certain subject under that subject's forum. When they click "post", the message will be posted to the respective subject page.
 
-Students can search for tutor name/ course code/ 
+Users can search for tutor name/ course code/ using the search bar.
 
 ### Upon logged in as tutor
 
