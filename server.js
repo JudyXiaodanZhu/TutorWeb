@@ -5,7 +5,11 @@ var routes = require("./routes");
 var app = express();
 
 app.use(express.static(__dirname + "/assets"));
+app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/"));
+//app.engine('.html', require('ejs').__express);
+//app.set('views', __dirname);
+//app.set('view engine', 'html');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -13,7 +17,15 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get("/", function(req, res) {
-    res.sendfile("index.html");
+    res.sendFile(__dirname + "/public/index.html");
+});
+
+app.get("/signup", function(req, res) {
+    res.sendFile(__dirname + "/public/signup.html");
+});
+
+app.get("/login", function(req, res) {
+    res.sendFile(__dirname + "/public/login.html");
 });
 
 app.post("/signup", routes.postNewUser);
