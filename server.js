@@ -7,9 +7,6 @@ var app = express();
 app.use(express.static(__dirname + "/assets"));
 app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/"));
-//app.engine('.html', require('ejs').__express);
-//app.set('views', __dirname);
-//app.set('view engine', 'html');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -33,6 +30,8 @@ app.post("/signup", routes.postNewUser);
 app.post("/login", routes.postLogin);
 
 app.get("/dashboard", routes.getDashboard);
+
+app.get("/status", routes.getStatus);
 
 app.get("/search", routes.getSearch);
 

@@ -1,6 +1,7 @@
 'use strict';
 
 var signin = {};
+var canSubmit = false;
 
 signin.init = function() {
     $("#login-form").submit(function(event) {
@@ -14,7 +15,10 @@ signin.init = function() {
             let status = result.status;
             if (status === 1) $("#error-message").text("Username not exists");
             else if (status === 2) $("#error-message").text("Wrong password");
-            else if (status === 0) window.location = "/dashboard";
+            else if (status === 0) {
+                setCookie("user", JSON.stringify(result.userdata), 1);
+                window.location = "/dashboard";
+            }
         })
     });
 }

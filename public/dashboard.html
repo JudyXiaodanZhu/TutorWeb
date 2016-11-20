@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <head>
     <title>Find Tutor</title>
+    <link type="text/css" rel="stylesheet" href="css/dashboard.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="scripts/cookie.js"></script>
+    <script src="scripts/dashboard.js"></script>
 </head>
 
 <body>
@@ -24,4 +27,13 @@
         </div>
     </nav>
 
+    <div class="col-sm-3 col-md-3 sidebar">
+		<div id="courses-div" class="list-group"></div>
+    </div>
+    <div class="col-sm-6 col-md-6">
+        <div id="main-div" class="list-group"></div>
+    </div>
+    <div class="col-sm-3 col-md-3 sidebar">
+		<div id="friends-div" class="list-group"></div>
+    </div>
 </body>

@@ -11,15 +11,17 @@ var userSchema = new Schema(
         },
         type: {
             type: String, requried: true
-        }
+        },
+        online: {
+            type: Boolean, required: true, default: 0
+        },
+        courses: [String],
+        friends: [String]
     },
     {
         collection: 'users'
     }
 );
 
-// Doc for Mongoose Connections: http://mongoosejs.com/docs/connections
 mongoose.connect('mongodb://localhost/usersdb');
-
-// Doc for Mongoose Models: http://mongoosejs.com/docs/models
 module.exports = mongoose.model('User', userSchema);
