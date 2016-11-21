@@ -3,7 +3,7 @@ Project
 
 To get server function:
 
-1. Make suer <a href=https://docs.mongodb.com/manual/installation/?jmp=footer>MongoDB</a> is installed
+1. Make sure <a href=https://docs.mongodb.com/manual/installation/?jmp=footer>MongoDB</a> is installed
 
 2. In terminal, cd into the cloned project directory
 
