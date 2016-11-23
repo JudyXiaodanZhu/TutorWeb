@@ -4,13 +4,20 @@ var Schema = mongoose.Schema;
 var courseSchema = new Schema(
     {
         code:     {type: String, required: true, unique: true},
-        //students: [String],
         posts: {type: [{
             id: {type: Number, required: true, unique: true},
             text: {type: String, required: true},
             author: {type: String, required: true},
             date: {type: Date, required: true}
-        }], required: true, default: []}
+        }], required: true, default: []},
+        archived: {type: [{
+            id: {type: Number, required: true, unique: true},
+            text: {type: String, required: true},
+            author: {type: String, required: true},
+            date: {type: Date, required: true}
+        }], required: true, default: []},
+        tutors: {type: [String], required: true, default: []},
+        students: {type: [String], required: true, default: []}
     },
     {
         collection: 'courses'
