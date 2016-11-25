@@ -19,7 +19,7 @@ profile.init = function() {
 
     $("a[id^='remove-post']").css("cursor", "pointer").click(function() {
         let id = $(this).prop("id").substring(12);
-        $.post("/removePostRequest", {id: id}, function(result) {
+        $.post("/removeTutorPost", {id: id}, function(result) {
             location.reload();
         })
     });

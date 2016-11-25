@@ -10,15 +10,14 @@ dashboard.init = function() {
         for (let i = 0; i < json_raw.length; i++) {
             json_submit[json_raw[i].name] = json_raw[i].value;
         }
-        $.post("/postRequest", json_submit, function(result) {
+        $.post("/postStudentRequest", json_submit, function(result) {
             let status = result.status;
             if (status === 1) $("#form-feedback").text("Form incomplete");
-            else if (status === 2) $("#form-feedback").text("Unknown error");
             else if (status === 0) {
                 $("#post-form")[0].reset();
                 $("#form-feedback").text("Post successfully");
             }
-        })
+        });
     });
 
     $("#pay").on("input", function() {

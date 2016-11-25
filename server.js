@@ -5,7 +5,11 @@ var bodyParser = require("body-parser");
 var nunjucks = require('nunjucks');
 var session = require('express-session');
 
-var routes = require("./routes");
+var course = require("./routes/course");
+var dashboard = require("./routes/dashboard");
+var profile = require("./routes/profile");
+var signin = require("./routes/signin");
+var search = require("./routes/search");
 var User = require("./models/user");
 var Course = require("./models/course")
 
@@ -22,32 +26,38 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.get("/", function(req, res) { // TODO Main page design
+app.get("/", function(req, res) { // TODO Main page design (Judy)
     res.render("index.html");
 });
 
-app.get("/signup", function(req, res) { // TODO Not implemented
+app.get("/signup", function(req, res) { // TODO implement scripts/signin.js (Judy)
     res.render("signup.html", { scripts: ["signup"], styles: ["signin"] });
 });
 
-app.get("/login", function(req, res) { // Done
+app.get("/login", function(req, res) { // TODO Remember me function (unclaimed)
     res.render("login.html", { scripts: ["login"], styles: ["signin"] });
 });
 
-app.get('/logout', routes.getLogout);// Done
+app.get('/logout', signin.getLogout);// Done
+app.post("/signup", signin.postNewUser);// TODO implement routes/signin.js (Judy)
+app.post("/login", signin.postLogin); // Done
 
-app.post("/signup", routes.postNewUser);// TODO Not implemented
-app.post("/login", routes.postLogin); // Done
+app.get("/dashboard", dashboard.getDashboard);// TODO implement public/dashboard.html (Tutor part) (Judy)
+app.post("/postStudentRequest", dashboard.postStudentRequest);// Done
+app.post("/postTutorRequest", dashboard.postTutorRequest);// TODO implement in routes/dashboard.js (Judy)
 
-app.get("/dashboard", routes.getDashboard);// TODO Mostly Done (page for tutor)
-app.get("/search", routes.getSearch);// TODO Not implemented
-app.get("/profile", routes.getProfile);// Done
-app.get("/course", routes.getCourse);// TODO Not implemented
+app.get("/search", search.getSearch);// TODO Not implemented (Raymond)
+// Other functions needed in search.js
 
-app.post("/removeCourse", routes.removeCourse);// Done
-app.post("/removeFriend", routes.removeFriend);// Done
-app.post("/removePostRequest", routes.removePostRequest);// Done
-app.post("/postRequest", routes.postRequest);// Done
+app.get("/course", course.getCourse);// TODO Not implemented (Jack)
+// Other functions needed in course.js
+
+app.get("/profile", profile.getProfile);// Done
+app.get("/profile", profile.postProfile);// TODO update profile (unclaimed)
+app.post("/removeCourse", profile.removeCourse);// Done
+app.post("/removeFriend", profile.removeFriend);// Done
+app.post("/removeTutorPost", profile.removeTutorPost);// Done
+
 
 var server = app.listen(3000, function(request, response) {
     console.log("Running on 127.0.0.1:%s", server.address().port);

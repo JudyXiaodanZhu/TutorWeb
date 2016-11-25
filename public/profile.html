@@ -20,10 +20,10 @@
     <div class="col-sm-6 col-md-6">
         <div id="main-div" class="list-group">
             <span>All posts that {{user.username}} posted:</span><br>
-            {% if user.posts.length === 0 %}
+            {% if posts.length === 0 %}
             {{user.username}} didn't post anything.
             {% endif %}
-            {% for post in user.posts %}
+            {% for post in posts %}
             <span class="list-group-item">
                 Subject: {{post.subject}}<br>
                 Title: {{post.title}}<br>

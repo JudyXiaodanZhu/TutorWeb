@@ -16,16 +16,7 @@ var userSchema = new Schema(
             type: Boolean, required: true, default: 0
         },
         courses: [String],
-        friends: [String],
-        posts: {
-            type: [{
-                subject: {type: String, required: true},
-                title: {type: String, required: true},
-                detail: {type: String, required: true},
-                when: {type: String, required: true},
-                date: {type: Date, required: true}
-            }]
-        }
+        friends: [String]
     },
     {
         collection: 'users'
