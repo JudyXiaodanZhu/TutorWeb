@@ -10,5 +10,8 @@ To get server function:
 3. Run `./start_db.sh`
 
 4. Open another terminal and run `./start_server.sh`
+
+
+
 <br><br>
 Note: If you want to completely clean the database, run ....
