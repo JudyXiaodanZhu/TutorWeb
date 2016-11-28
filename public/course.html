@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="col-sm-3 col-md-3 sidebar">
+  Test 1.
+</div>
+
+<div class="col-sm-6 col-md-6">
+
+</div>
+
+<div class="col-sm-3 col-md-3 sidebar">
+    <div id="friends-div" class="list-group">
+      {% if userType === "admin" %}
+          <center>All Users Enrolled</center>
+      {% else %}
+          <center>All Friends in Course</center>
+      {% endif %}
+        {% for friend in friends %}
+        <a href="/profile?id={{friend.username}}" class="list-group-item">
+            {{friend.username}}
+            <span style="float: right; color: {% if friend.online %}green{% else %}red{% endif %}">
+                ● {% if friend.online %}online{% else %}offline{% endif %}
+            </span>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

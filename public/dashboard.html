@@ -4,7 +4,7 @@
     <div class="col-sm-3 col-md-3 sidebar">
 		<div id="courses-div" class="list-group">
             {% if enrolled.length === 0 %}
-            Search and enroll a course now!
+            Search and enroll in a course now!
             {% endif %}
             {% for course in enrolled %}
             <a href="/course?id={{course.code}}" class="list-group-item">
