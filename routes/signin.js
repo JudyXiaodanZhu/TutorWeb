@@ -4,10 +4,28 @@ var User = require("../models/user");
 var Course = require("../models/course");
 
 exports.postNewUser = function(req, res) {
-    // TODO Judy
     console.log("New User");
     console.log(req.body);
-    res.send("not implemented");
+    
+    User.findOne({ username : req.body.username }, function(err, user) {
+        if (err) throw err;
+
+        if (user) res.json({status: 1});
+        else {
+            var newUser = new User({
+                username:req.body.username,
+                password:req.body.password,
+                type:req.body.user-type,
+                online:true
+            });
+            
+             newUser.save(function(err, newUser) {
+                 if (err) throw err;
+                 res.send({status: 0});
+             })
+        }
+    });
+
 };
 
 exports.postLogin = function(req, res) {

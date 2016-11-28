@@ -47,5 +47,18 @@ exports.postStudentRequest = function(req, res) {
 };
 
 exports.postTutorRequest = function(req, res) {
-    // TODO Judy
+    if (req.session.user === undefined) return res.redirect("/login");
+
+    if(!req.body.subject || !req.body.intro)
+        return res.send({status: 1});
+
+    let new_post_json = JSON.parse(JSON.stringify(req.body));
+    new_post_json["is_tutor"] = true;
+    new_post_json["username"] = req.session.user.username;
+    new_post_json["date"] = new Date();
+    let new_post = new Post(new_post_json);
+    new_post.save(function(err, result) {
+        if (err) throw err;
+        res.send({status: 0});
+    });
 }

@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
 {% block body %}
-    <div class="container">
+    <div class="container" id = "about">
         <div class="row">
             <div>
                 <h1 class="text-center login-title">Create a Find Tutor Account</h1>
                 <div class="account-wall">
                     <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
                         alt="">
-                    <form class="form-signin">
-                        <input type="text" class="form-control" placeholder="Choose a username" required autofocus>
-                        <input type="text" class="form-control" placeholder="Email" required>
+                    <form id="signup-form" class="form-signin">
+                        <input type="text" name="username" class="form-control" placeholder="Choose a username" required autofocus>
+                        <input type="text" name="password" class="form-control" placeholder="Email" required>
                         <input type="password" class="form-control" placeholder="Password" required>
                         <input type="radio" name="user-type">Student
                         <input type="radio" name="user-type">Tutor
