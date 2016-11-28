@@ -28,7 +28,7 @@
     },
     {
         "username":"dashen",
-        "password":"123456",
+        "password":"123",
         "type":"tutor",
         "courses":["CSC373","CSC369"],
         "friends":[]

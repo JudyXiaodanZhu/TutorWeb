@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+    <div class="col-sm-8 col-md-8">
+      <div id="main-div" class="list-group">
+        {% if type === "user" %}
+        <span class="list-group-item">
+          {{data}}
+        </span>
+        {% elif type === "course" %}
+        Found {{data.length}} courses!
+        {% for course in data %}
+        <span class="list-group-item">
+          Course code: {{course.code}}
+          <a id="add-course-{{course.code}}" style="float: right">Add</a>
+        </span>
+        {% endfor %}
+        {% endif %}
+      </div>
+      <div id="main-div" class="list-group">
+        {% for course in data %}
+        {% for tutor in course.tutors %}
+        <span class="list-group-item">
+          Tutor: {{tutor}}
+        </span>
+        {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+{% endblock %}

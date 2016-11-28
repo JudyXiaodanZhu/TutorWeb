@@ -30,44 +30,45 @@ dashboard.init = function() {
 
     //onclick handler for the search button...
     //backend and frontend connection works now..
-    $('#searchSubmit').click(function(){
+    $('#searchSubmit').submit(function(e){
+      e.preventDefault()
       var entered = $('#searchContent').val();
       var type = searchContentType(entered);
       if(type === -1){ //invalid search, thus do not send http request
           window.alert('Please modify your search field and try again');
       }else if(type === 0){ //tutor name
           //window.alert('0'); //type check works
-          $('#searchDisplayPanel').empty();
-          $.get('/search?tutorName=' + entered, function(response){
+          window.location = '/search?tutorName=' + entered;
+          /*$.get('/search?tutorName=' + entered, function(response){
               //window.alert(response); works  front -> back ->front(response) works
               if(response.length !== 0){
                 console.log(response);
               }else{
                 window.alert('No search tutor name');
               }
-          })
+          })*/
       }else if(type === 3){ //3-char course code
           //window.alert('3'); //type check works
-          $('#searchDisplayPanel').empty();
-          $.get('/search?shortCourseCode=' + entered, function(response){
+          window.location = '/search?shortCourseCode=' + entered;
+          /*$.get('/search?shortCourseCode=' + entered, function(response){
               // window.alert(response); works  front -> back ->front(response) works
               if(response.length !== 0){
                 console.log(response);
               }else{
                 window.alert('No such course code');
               }
-          })
+          })*/
       }else if(type === 6){ //6-char course code
           //window.alert('6'); //type check works
-          $('#searchDisplayPanel').empty();
-          $.get('/search?completeCourseCode=' + entered.toUpperCase(), function(response){
+          window.location = '/search?completeCourseCode=' + entered;
+          /*$.get('/search?completeCourseCode=' + entered.toUpperCase(), function(response){
               //window.alert(response); works  front -> back ->front(response) works
               if(response.length !== 0){
                 console.log(response);
               }else{
                 window.alert('No such course code');
               }
-          })
+          })*/
       }
     });
 }

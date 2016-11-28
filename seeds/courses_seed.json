@@ -10,5 +10,12 @@
     },
     {
         "code": "CSC207"
+    },
+    {
+        "code": "CSC369"
+    },
+    {
+        "code": "CSC373",
+        "tutors": ["dashen"]
     }
 ]
