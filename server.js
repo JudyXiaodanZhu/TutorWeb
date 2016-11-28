@@ -50,6 +50,7 @@ app.post("/postTutorRequest", dashboard.postTutorRequest);// TODO implement in r
 //Raymond Begins
 app.get('/search',search.getSearch);// TODO Not implemented (Raymond)
 app.get('/getMyUserName',search.getCurrentUserName);
+app.get('/getMyStatus',search.getCurrentUserStatues);
 app.get('/makeFriends',search.makeFriends);
 app.get('/addCourse',search.addCourse);
 // Other functions needed in search.js
