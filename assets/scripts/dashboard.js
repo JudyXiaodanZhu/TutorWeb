@@ -3,7 +3,8 @@
 var dashboard = {};
 
 
-//append search content at the div with id 'searchDisplayPanel'
+//append search result at search.html by using res.render() , using template
+//need to specify the template of search.html
 
 dashboard.init = function() {
     $("#post-form").submit(function(event) {
