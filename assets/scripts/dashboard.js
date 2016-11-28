@@ -28,6 +28,7 @@ dashboard.init = function() {
         $("#pay-amount").text("$ " + $(this).val() + " / hour");
     })
 
+//Raymond Begins..............
     //onclick handler for the search button...
     //backend and frontend connection works now..
     $('#searchSubmit').submit(function(e){
@@ -129,3 +130,4 @@ function checkNum(string){
   }
   return 0; //string does not have digit
 }
+//Raymond Ends......

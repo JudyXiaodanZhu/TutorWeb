@@ -46,8 +46,14 @@ app.get("/dashboard", dashboard.getDashboard);// TODO implement public/dashboard
 app.post("/postStudentRequest", dashboard.postStudentRequest);// Done
 app.post("/postTutorRequest", dashboard.postTutorRequest);// TODO implement in routes/dashboard.js (Judy)
 
+
+//Raymond Begins
 app.get('/search',search.getSearch);// TODO Not implemented (Raymond)
+app.get('/getMyUserName',search.getCurrentUserName);
+app.get('/makeFriends',search.makeFriends);
+app.get('/addCourse',search.addCourse);
 // Other functions needed in search.js
+//Raymond Ends..
 
 app.get("/course", course.getCourse);// TODO Not implemented (Jack)
 // Other functions needed in course.js
