@@ -1,25 +1,6 @@
-<!DOCTYPE html>
-<head>
-    <title>Find Tutor</title>
-    <link type="text/css" rel="stylesheet" href="css/signin.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="scripts/signin.js"></script>
-</head>
+{% extends "base.html" %}
 
-<body>
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/">Find Tutor</a>
-            </div>
-            <ul class="nav navbar-nav navbar-right">
-                <li ><a href="signup">Sign up</a></li>
-                <li ><a href="login">Log in</a></li>
-            </ul>
-        </div>
-    </nav>
-
+{% block body %}
     <div class="container">
         <div class="row">
             <div>
@@ -39,5 +20,4 @@
             </div>
         </div>
     </div>
-
-</body>
+{% endblock %}

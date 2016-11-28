@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+    <title>Find Tutor</title>
+    {% for css in styles %}
+    <link type="text/css" rel="stylesheet" href="css/{{ css }}.css" />
+    {% endfor %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    {% for script in scripts %}
+    <script src="scripts/{{ script }}.js"></script>
+    {% endfor %}
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Find Tutor</a>
+            </div>
+            {% if session.user %}
+            <form id='searchSubmit' class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search" id='searchContent'>
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            {% endif %}
+            <ul class="nav navbar-nav navbar-right">
+                {% if session.user %}
+                <li ><a href="logout">Log out</a></li>
+                <li ><a href="dashboard">Dashboard</a></li>
+                <li ><a href="profile?id={{session.user.username}}">Profile</a></li>
+                {% else %}
+                <li ><a href="signup">Sign up</a></li>
+                <li ><a href="login">Log in</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    {% block body %}
+    {% endblock %}
+</body>

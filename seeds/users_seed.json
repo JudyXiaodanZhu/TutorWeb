@@ -18,5 +18,19 @@
         "username": "Raymond",
         "password": "123",
         "type": "admin"
+    },
+    {
+        "username": "Dummy",
+        "password": "123",
+        "type": "student",
+        "courses": ["CSC108", "CSC148", "CSC165"],
+        "friends": ["Syugen", "Jack", "Raymond", "Judy"]
+    },
+    {
+        "username":"dashen",
+        "password":"123",
+        "type":"tutor",
+        "courses":["CSC373","CSC369"],
+        "friends":[]
     }
 ]

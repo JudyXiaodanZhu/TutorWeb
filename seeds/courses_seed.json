@@ -1,0 +1,21 @@
+[
+    {
+        "code": "CSC108"
+    },
+    {
+        "code": "CSC148"
+    },
+    {
+        "code": "CSC165"
+    },
+    {
+        "code": "CSC207"
+    },
+    {
+        "code": "CSC369"
+    },
+    {
+        "code": "CSC373",
+        "tutors": ["dashen"]
+    }
+]

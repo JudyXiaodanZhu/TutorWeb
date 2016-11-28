@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <div class="col-sm-3 col-md-3 sidebar">
+		<div id="courses-div" class="list-group">
+            <span>All courses that {{user.username}} is enrolled in:</span><br>
+            {% if user.courses.length === 0 %}
+            {{user.username}} didn't get enrolled in any courses.
+            {% endif %}
+            {% for course in user.courses %}
+            <span class="list-group-item">
+                {{course}}
+                {% if user.username === session.user.username %}
+                <a id="remove-course-{{course}}" style="float: right">Remove</a>
+                {% endif %}
+            </span>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-6">
+        <div id="main-div" class="list-group">
+            <span>All posts that {{user.username}} posted:</span><br>
+            {% if posts.length === 0 %}
+            {{user.username}} didn't post anything.
+            {% endif %}
+            {% for post in posts %}
+            <span class="list-group-item">
+                Subject: {{post.subject}}<br>
+                Title: {{post.title}}<br>
+                Detail: {{post.detail}}<br>
+                When: {{post.when}}<br>
+                Date: {{post.date}}
+                {% if user.username === session.user.username %}
+                <a id="remove-post-{{post.id}}" style="float: right">Remove</a>
+                {% endif %}
+            </span>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-sm-3 col-md-3 sidebar">
+		<div id="friends-div" class="list-group">
+            <span>All friends that {{user.username}} has:</span><br>
+            {% if user.friends.length === 0 %}
+            {{user.username}} didn't add any friends.
+            {% endif %}
+            {% for friend in user.friends %}
+            <span class="list-group-item">
+                {{friend}}
+                {% if user.username === session.user.username %}
+                <a id="remove-friend-{{friend}}" style="float: right">Remove</a>
+                {% endif %}
+            </span>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
