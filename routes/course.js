@@ -3,7 +3,6 @@
 var User = require("../models/user"); // Can be removed if not used
 var Course = require("../models/course");
 
-// TODO Jack: add any functions they you need.
 exports.getCourse = function(req, res)
 {
 
@@ -34,13 +33,13 @@ exports.getCourse = function(req, res)
                           num_tutors : courses[i].tutors.length,
                           num_students : courses[i].students.length});
 
-            let settings = {friends: friends, userType: userType, courses: enrolled, currCourse: course};
+            let settings = {friends: friends, userType: userType, courses: enrolled, currCourse: course, username: username};
             res.render("course.html", settings);
 
         });
       });
     }
-    //console.log(friends);
+
     //If not admin get all friends.
     else
     {
