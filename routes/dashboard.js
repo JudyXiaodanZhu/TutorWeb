@@ -48,15 +48,21 @@ exports.postStudentRequest = function(req, res) {
 
 exports.postTutorRequest = function(req, res) {
     if (req.session.user === undefined) return res.redirect("/login");
-
-    if(!req.body.subject || !req.body.intro)
+    
+    if(!req.body.subject || !req.body.detail)
         return res.send({status: 1});
 
-    let new_post_json = JSON.parse(JSON.stringify(req.body));
-    new_post_json["is_tutor"] = true;
-    new_post_json["username"] = req.session.user.username;
-    new_post_json["date"] = new Date();
-    let new_post = new Post(new_post_json);
+    let new_post = new Post({
+        is_student: false,
+        username: req.session.user.username,
+        subject: req.body.subject,
+        title: 'none',
+        range: req.body.range,
+        detail: req.body.detail,
+        when: 'none',
+        date: new Date()
+    });
+
     new_post.save(function(err, result) {
         if (err) throw err;
         res.send({status: 0});

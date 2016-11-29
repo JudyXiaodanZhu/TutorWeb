@@ -31,7 +31,7 @@ app.get("/", function(req, res) { // TODO Main page design (Judy)
 });
 
 app.get("/signup", function(req, res) { // TODO implement scripts/signin.js (Judy)
-    res.render("signup.html", { scripts: ["signup"], styles: ["signin"] });
+    res.render("signup.html", { scripts: ["signin"], styles: ["signin"] });
 });
 
 app.get("/login", function(req, res) { // TODO Remember me function (unclaimed)

@@ -30,12 +30,14 @@ dashboard.init = function() {
         let json_submit = {};
         for (let i = 0; i < json_raw.length; i++) {
             json_submit[json_raw[i].name] = json_raw[i].value;
+            console.log(json_raw[i].value);
         }
+
         $.post("/postTutorRequest", json_submit, function(result) {
             let status = result.status;
             if (status === 1) $("#form-feedback").text("Form incomplete");
             else if (status === 0) {
-                $("#post-form")[0].reset();
+                $("#post-form-tut")[0].reset();
                 $("#form-feedback").text("Post successfully");
             }
         });

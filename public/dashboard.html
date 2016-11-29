@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block body %}
+    <div class="body-dash">
     <div class="col-sm-3 col-md-3 sidebar">
 		<div id="courses-div" class="list-group">
             {% if session.user.type === "admin" %}
@@ -61,7 +62,7 @@
                     <input type="text" name="subject" style="width: 100%">
                 </p>
                 <p>Introduction:<br>
-                    <input type="text" name="intro" style="width: 100%"
+                    <input type="text" name="detail" style="width: 100%"
                     placeholder="I'm a good tutor.">
                 </p>
                 <p>Tutoring Rate: <span id="pay-amount">$ 50 / hour</span><br>
@@ -92,5 +93,6 @@
             </a>
             {% endfor %}
         </div>
+    </div>
     </div>
 {% endblock %}

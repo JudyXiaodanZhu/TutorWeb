@@ -1,6 +1,6 @@
 'use strict';
 
-var signup = {};
+var signin = {};
 
 signin.init = function() {
     $("#signup-form").submit(function(event) {
@@ -9,12 +9,15 @@ signin.init = function() {
         let json_submit = {};
         for (let i = 0; i < json_raw.length; i++) {
             json_submit[json_raw[i].name] = json_raw[i].value;
+             console.log(json_raw[i].value);
         }
 
         $.post("/signup", json_submit, function(result) {
             let status = result.status;
+            console.log(status);
             if (status === 1) $("#error-message").text("User already exists");
             else if (status === 0) {
+                console.log("here");
                 window.location = "/dashboard";
             }
         })
@@ -22,5 +25,5 @@ signin.init = function() {
 }
 
 $(document).ready(function() {
-    signup.init();
+    signin.init();
 });
