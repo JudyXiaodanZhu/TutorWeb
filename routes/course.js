@@ -7,8 +7,6 @@ var Course = require("../models/course");
 exports.getCourse = function(req, res)
 {
 
-    //console.log(req);
-
     //Gets the course id, for the course page the user wants to visit.
     let userType = req.session.user.type;
     let course = req.url.substring(req.url.indexOf("id=") + "id=".length).trim();
@@ -21,13 +19,26 @@ exports.getCourse = function(req, res)
         User.find(userType, function(err, users) {
             for (let i = 0; i < users.length; i++)
             {
+                if(users[i].type.toLowerCase() == "admin" ||
+                   users[i].courses.indexOf(course) != -1)
                 friends.push({username : users[i].username,
                               online : users[i].online});
             }
 
-            let settings = {friends: friends, userType: userType};
+    let whatToFind = req.session.user.type === "admin" ? {} : { code : { $in: req.session.user.courses }};
+    Course.find(whatToFind, function(err, courses) {
+        let enrolled = [];
+        for (let i = 0; i < courses.length; i++)
+            enrolled.push({ code : courses[i].code,
+                          num_posts : courses[i].posts.length,
+                          num_tutors : courses[i].tutors.length,
+                          num_students : courses[i].students.length});
+
+            let settings = {friends: friends, userType: userType, courses: enrolled, currCourse: course};
             res.render("course.html", settings);
+
         });
+      });
     }
     //console.log(friends);
     //If not admin get all friends.
@@ -48,8 +59,6 @@ exports.getCourse = function(req, res)
                     else
                     {
                         let fTemp = users[i].friends;
-                        console.log(fTemp);
-                        console.log("-------------------------");
                         for(let x = 0; x < users.length; x++)
                         {
                           //Finds users friends who are enrolled in the course
@@ -67,8 +76,19 @@ exports.getCourse = function(req, res)
                 }
             }
 
-            let settings = {friends: friends, userType: userType};
-            res.render("course.html", settings);
+            let whatToFind = req.session.user.type === "admin" ? {} : { code : { $in: req.session.user.courses }};
+            Course.find(whatToFind, function(err, courses) {
+                let enrolled = [];
+                for (let i = 0; i < courses.length; i++)
+                    enrolled.push({ code : courses[i].code,
+                                  num_posts : courses[i].posts.length,
+                                  num_tutors : courses[i].tutors.length,
+                                  num_students : courses[i].students.length});
+
+                let settings = {friends: friends, userType: userType, courses: enrolled};
+                res.render("course.html", settings);
+
+            });
         });
     }
 

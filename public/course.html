@@ -2,11 +2,25 @@
 
 {% block body %}
 <div class="col-sm-3 col-md-3 sidebar">
-  Test 1.
+<div id="courses-div" class="list-group">
+        {% if session.user.type === "admin" %}
+            <center>All Courses</center>
+        {% else %}
+            <center>Courses Enrolled In</center>
+        {% endif %}
+        {% for course in courses %}
+        <a href="/course?id={{course.code}}" class="list-group-item">
+            {{course.code}}<br>
+            Posts: {{course.num_posts}}<br>
+            Tutors: {{course.num_tutors}}<br>
+            Students: {{course.num_students}}<br>
+        </a>
+        {% endfor %}
+    </div>
 </div>
 
 <div class="col-sm-6 col-md-6">
-
+<center><h3>{{currCourse}} Group Page</h3></center>
 </div>
 
 <div class="col-sm-3 col-md-3 sidebar">

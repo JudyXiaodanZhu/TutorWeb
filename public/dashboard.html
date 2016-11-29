@@ -3,6 +3,11 @@
 {% block body %}
     <div class="col-sm-3 col-md-3 sidebar">
 		<div id="courses-div" class="list-group">
+            {% if session.user.type === "admin" %}
+                <center>All Courses</center>
+            {% else %}
+                <center>Courses Enrolled In</center>
+            {% endif %}
             {% if enrolled.length === 0 %}
             Search and enroll in a course now!
             {% endif %}
@@ -56,6 +61,11 @@
     </div>
     <div class="col-sm-3 col-md-3 sidebar">
 		<div id="friends-div" class="list-group">
+            {% if session.user.type === "admin" %}
+                <center>All Users</center>
+            {% else %}
+                <center>Friends List</center>
+            {% endif %}
             {% if friends.length === 0 %}
             You don't have any friends!
             {% endif %}
