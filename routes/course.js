@@ -84,7 +84,7 @@ exports.getCourse = function(req, res)
                                   num_tutors : courses[i].tutors.length,
                                   num_students : courses[i].students.length});
 
-                let settings = {friends: friends, userType: userType, courses: enrolled};
+                let settings = {friends: friends, userType: userType, courses: enrolled, currCourse: course, username: username};
                 res.render("course.html", settings);
 
             });
