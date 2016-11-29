@@ -48,9 +48,9 @@ app.post("/postTutorRequest", dashboard.postTutorRequest);// Done
 
 
 //Raymond Begins
-app.get('/search', search.getSearch);// TODO Can do improvement
+app.get('/search', search.getSearch);// TODO Search can be improved
 app.post('/makeFriends', search.makeFriends); //TODO Add feedback
-app.post('/addCourse', search.addCourse);// TODO Add feedback, BUG!
+app.post('/addCourse', search.addCourse);// TODO Add feedback
 // Other functions needed in search.js
 //Raymond Ends..
 

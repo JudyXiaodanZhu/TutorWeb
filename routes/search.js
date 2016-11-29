@@ -67,10 +67,6 @@ exports.makeFriends = function(req, res){
     })
 }
 
-//NOTE: doesn't work here.. it works until calling .save method.. it it generates validator error
-//NOTE: make friends works through Mongo DB but add course does note
-//NOTE: once add course failed by updating mongo db, need to re-start the server to get add course work
-//NOTE: schema problem probably
 exports.addCourse = function(req,res){
     if (req.session.user === undefined) return res.redirect("/login");
 
@@ -78,7 +74,6 @@ exports.addCourse = function(req,res){
     //add the student to the students field of the course, based on the schema..
     //Note: use .findOne here instead of .find
     Course.findOne({code:courseCode},function(err,course){
-        console.log(course);//works..
         if (err) throw err;
         if (req.session.user.type === "student") {
             if(course.students.indexOf(req.session.user.username) === -1){
@@ -86,15 +81,16 @@ exports.addCourse = function(req,res){
             }
         } else if (req.session.user.type === "tutor") {
             if(course.tutors.indexOf(req.session.user.username) === -1){
-                course.tutors.push(namreq.session.user.usernamee);
+                course.tutors.push(req.session.user.username);
             }
         }
-        course.save(function(err){
-            //NOTE: Course validation error
-            if(err) throw err;
-            res.send('Student ' + name +' has successfully add the coures '+ course.code);
-        });
+        course.save(function(err, result) {if(err) throw err;});
+    });
 
+    User.findOne({ username: req.session.user.username }, function(err, user){
+        if (err) throw err;
+        user.courses.push(courseCode);
+        user.save(function(err, result) {if(err) throw err;});
     });
 }
 //note: need to clean and re-make the mongo database to make it 100% correct..
