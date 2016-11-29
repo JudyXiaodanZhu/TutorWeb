@@ -1,41 +1,47 @@
 {% extends "base.html" %}
 
 {% block body %}
-
     <div class="col-sm-8 col-md-8">
-      <div id="main-div" class="list-group">
-        {% if type === "user" %}
-        <div class="list-group-item">
-          {{data.username}}
-          <a id="add-friend-{{data.username}}" style="float: right">Make friend</a>
-          <br><br>
-          Courses that are avaliable to tutor:
-          {% for tutorCourse in data.courses %}
-          <span class="list-group-item">
-            Course code:   {{tutorCourse}}
-            <a id="add-course-{{tutorCourse}}" style="float: right">Add</a>
-          </span>
-          {% endfor %}
+        <div id="main-div" class="list-group">
+    {% if type === "user"%}
+            {% for user in users %}
+            <div class="list-group-item">
+                {{user.username}}
+                <a id="add-friend-{{user.username}}" style="float: right">Make friend</a>
+                <br><br>
+                Courses that are avaliable to tutor:
+                {% for tutorCourse in user.courses %}
+                <span class="list-group-item">
+                    Course code:   {{tutorCourse}}
+                    <a id="add-course-{{tutorCourse}}" style="float: right">Add</a>
+                </span>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+    {% elif type === "course" %}
+            Found {{data.length}} courses!
+            {% for course in data %}
+            <span class="list-group-item">
+                Course code: {{course.code}}
+                <a id="add-course-{{course.code}}" style="float: right">Add</a>
+            </span>
+            {% endfor %}
         </div>
-        {% elif type === "course" %}
-        Found {{data.length}} courses!
-        {% for course in data %}
-        <span class="list-group-item">
-          Course code: {{course.code}}
-          <a id="add-course-{{course.code}}" style="float: right">Add</a>
-        </span>
-        {% endfor %}
-        {% endif %}
-      </div>
-      <div id="main-div" class="list-group">
-        {% for course in data %}
-        {% for tutor in course.tutors %}
-        <span class="list-group-item">
-          Tutor: {{tutor}}
-          <a id="add-friend-{{tutor}}" style="float: right">Make friend</a>
-        </span>
-        {% endfor %}
-        {% endfor %}
-      </div>
+
+        <div id="main-div" class="list-group">
+            Related tutors:<br>
+            {% for course in data %}
+            {{course.code}}:
+            {% for tutor in course.tutors %}
+            <span class="list-group-item">
+                Tutor: {{tutor}}
+                <a id="add-friend-{{tutor}}" style="float: right">Make friend</a>
+            </span>
+            {% endfor %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
     </div>
 {% endblock %}

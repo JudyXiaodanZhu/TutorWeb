@@ -24,7 +24,14 @@
         "password": "123",
         "type": "student",
         "courses": ["CSC108", "CSC148", "CSC165"],
-        "friends": ["Syugen", "Jack", "Raymond", "Judy"]
+        "friends": ["Syugen", "Raymond", "Judy", "dashen", "Dummy2"]
+    },
+    {
+      "username": "Dummy2",
+      "password": "123",
+      "type": "student",
+      "courses": ["CSC108"],
+      "friends": ["Syugen", "Dummy"]
     },
     {
         "username":"dashen",

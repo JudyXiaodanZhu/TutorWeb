@@ -1,6 +1,13 @@
 [
     {
-        "code": "CSC108"
+        "code": "CSC108",
+        "posts": [
+            {
+                "text": "This is the first CSC108 post",
+                "author": "Syugen",
+                "date": "2017-12-31T23:07:11Z"
+            }
+        ]
     },
     {
         "code": "CSC148"
@@ -12,7 +19,11 @@
         "code": "CSC207"
     },
     {
-        "code": "CSC369"
+        "code": "CSC209"
+    },
+    {
+        "code": "CSC369",
+        "tutors": ["dashen"]
     },
     {
         "code": "CSC373",

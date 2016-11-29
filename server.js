@@ -26,11 +26,11 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.get("/", function(req, res) { // TODO Main page design (Judy)
-    res.render("index.html");
+app.get("/", function(req, res) { // Done
+    res.render("index.html", { navbarFixedTop : true});
 });
 
-app.get("/signup", function(req, res) { // TODO implement scripts/signin.js (Judy)
+app.get("/signup", function(req, res) { // Done
     res.render("signup.html", { scripts: ["signin"], styles: ["signin"] });
 });
 
@@ -39,19 +39,18 @@ app.get("/login", function(req, res) { // TODO Remember me function (unclaimed)
 });
 
 app.get('/logout', signin.getLogout);// Done
-app.post("/signup", signin.postNewUser);// TODO implement routes/signin.js (Judy)
+app.post("/signup", signin.postNewUser);// Done
 app.post("/login", signin.postLogin); // Done
 
 app.get("/dashboard", dashboard.getDashboard);// TODO implement public/dashboard.html (Tutor part) (Judy)
 app.post("/postStudentRequest", dashboard.postStudentRequest);// Done
-app.post("/postTutorRequest", dashboard.postTutorRequest);// TODO implement in routes/dashboard.js (Judy)
+app.post("/postTutorRequest", dashboard.postTutorRequest);// Done
 
 
 //Raymond Begins
-app.get('/search',search.getSearch);// TODO Not implemented (Raymond)
-app.get('/getMyUserName',search.getCurrentUserName);
-app.get('/makeFriends',search.makeFriends);
-app.get('/addCourse',search.addCourse);
+app.get('/search', search.getSearch);// TODO Search can be improved
+app.post('/makeFriends', search.makeFriends); //TODO Add feedback
+app.post('/addCourse', search.addCourse);// TODO Add feedback
 // Other functions needed in search.js
 //Raymond Ends..
 

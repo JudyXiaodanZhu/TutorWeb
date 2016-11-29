@@ -5,54 +5,46 @@ var Course = require("../models/course");
 //data from courses_seed.json and from users_seed.json have been
 //loaded to the corresponding mongo database via command in terminal..
 
-// TODO Raymond: add any functions they you need.
 //build the response here..
 //handle HTTP request sent via dashboard.js(the assets' one)
 exports.getSearch = function(req, res) {
-    //console.log(username);
-    var tutorName = req.query.tutorName;
-    var shortCourseCode = req.query.shortCourseCode;
-    var completeCourseCode = req.query.completeCourseCode;
+    if (req.session.user === undefined) return res.redirect("/login");
+
+    let content = req.query.content;
     //the below if statement has covered all the possibilities
-    if(tutorName !== undefined){
-        //res.send('tutorName success to backend'); //front -> back -> front test
-        User.findOne({type:'tutor',username:tutorName},function(err,user){
-          if(err) throw err;
-          res.render("search.html", {type: "user", data: user, scripts: ["search"]});
-        })
-    }else if(shortCourseCode !== undefined){
-        Course.find({code: {$regex:shortCourseCode}},function(err,courses){
-          if(err) throw err;
-          res.render("search.html", {type: "course", data: courses, scripts: ["search"]});
-        })
-    }else if(completeCourseCode !== undefined){
-        //res.send('completeCourseCode Success to backend'); //front -> back -> front test
-        var temp = completeCourseCode.toUpperCase();
-        Course.findOne({code:temp},function(err,course){
-          if(err) throw err;
-          res.render("search.html", {type: "course", data: [course], scripts: ["search"]});
-        })
+    if (content.length === 0) {
+        res.render("search.html");
+    } else if (content.match(/\d{3}/g)) {
+        Course.find({code: {$regex:content}},function(err,courses){
+            if(err) throw err;
+            res.render("search.html", {type: "course", data: courses, scripts: ["search"]});
+        });
+    } else if (content.match(/[A-Za-z]{3}\d{3}/g)) {
+        Course.findOne({code:content.toUpperCase()},function(err,course){
+            if(err) throw err;
+            res.render("search.html", {type: "course", data: [course], scripts: ["search"]});
+        });
+    } else {
+        User.find({type:'tutor',username:{$regex:content}},function(err,users){
+            if(err) throw err;
+            res.render("search.html", {type: "user", users: users, scripts: ["search"]});
+        });
     }
 };
 
-
-//handle HTTP requests sent via search.js(the assets' one)
-exports.getCurrentUserName = function(req,res){
-    res.send(req.session.user.username);
-}
-
 //works and done
-exports.makeFriends = function(req,res){
-    console.log(req.query.f1); //works
-    console.log(req.query.f2); //works
-    var f1 = req.query.f1;
-    var f2 = req.query.f2;
+exports.makeFriends = function(req, res){
+    if (req.session.user === undefined) return res.redirect("/login");
+
+    let f1 = req.body.username;
+    let f2 = req.session.user.username;
     //mutually add friends here
 
     User.findOne({username:f1},function(err,user){
       //console.log(user);
       //console.log(user.friends);
-      if(user.friends.indexOf(f2) == -1){
+      if(err) throw err;
+      if(user.friends.indexOf(f2) == -1){ //prevent duplicate
           user.friends.push(f2);
           user.save(function(err){
               if(err) throw err;
@@ -63,7 +55,8 @@ exports.makeFriends = function(req,res){
     User.findOne({username:f2},function(err,user){
       //console.log(user);
       //console.log(user.friends);
-      if(user.friends.indexOf(f1) == -1){
+      if(err) throw err;
+      if(user.friends.indexOf(f1) == -1){ //prevent duplicate
           user.friends.push(f1);
           user.save(function(err){
               if(err) throw err;
@@ -74,10 +67,31 @@ exports.makeFriends = function(req,res){
     })
 }
 
-//TODO
 exports.addCourse = function(req,res){
-    console.log(req.query.course); //works
-    console.log(req.query.myName);//works
+    if (req.session.user === undefined) return res.redirect("/login");
+
+    let courseCode = req.body.code;console.log(courseCode)
+    //add the student to the students field of the course, based on the schema..
+    //Note: use .findOne here instead of .find
+    Course.findOne({code:courseCode},function(err,course){
+        if (err) throw err;
+        if (req.session.user.type === "student") {
+            if(course.students.indexOf(req.session.user.username) === -1){
+                course.students.push(req.session.user.username);
+            }
+        } else if (req.session.user.type === "tutor") {
+            if(course.tutors.indexOf(req.session.user.username) === -1){
+                course.tutors.push(req.session.user.username);
+            }
+        }
+        course.save(function(err, result) {if(err) throw err;});
+    });
+
+    User.findOne({ username: req.session.user.username }, function(err, user){
+        if (err) throw err;
+        user.courses.push(courseCode);
+        user.save(function(err, result) {if(err) throw err;});
+    });
 }
-//NOTE: need to clean and re-make the mongo database to make it 100% correct..
+//note: need to clean and re-make the mongo database to make it 100% correct..
 //Raymond Ends......

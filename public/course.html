@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="col-sm-3 col-md-3 sidebar">
+<div id="courses-div" class="list-group">
+        {% if session.user.type === "admin" %}
+            <center>All Courses</center>
+        {% else %}
+            <center>Courses Enrolled In</center>
+        {% endif %}
+        {% for course in courses %}
+        <a href="/course?id={{course.code}}" class="list-group-item">
+            {{course.code}}<br>
+            Posts: {{course.num_posts}}<br>
+            Tutors: {{course.num_tutors}}<br>
+            Students: {{course.num_students}}<br>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+<div id="middle-column" class="col-sm-6 col-md-6">
+<center><h2>{{currCourse}} Group Page</h2></center><br>
+  <h3>Welcome {{username}}</h3>
+  <div id="posts-div" class="list-group-item">
+      <textarea rows="7" style="resize:vertical; width:100%;" placeholder="What question would you like to ask?"></textarea><br><br>
+      <style>
+          .button {
+            display: inline-block;
+            border-radius: 4px;
+            background-color: #4d94ff;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 15px;
+            padding: 7px;
+            width: 100px;
+            transition: all 0.5s;
+            cursor: pointer;
+          }
+
+          .button span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+          }
+
+          .button span:after {
+            content: '»';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+          }
+
+          .button:hover span {
+            padding-right: 25px;
+          }
+
+          .button:hover span:after {
+            opacity: 1;
+            right: 0;
+          }
+      </style>
+      <button id="postButton" class="button" style="vertical-align:middle"><span>Post </span></button>
+
+      <script>
+
+      </script>
+  </div>
+  <br><br><br><br><br><br>
+</div>
+
+<div class="col-sm-3 col-md-3 sidebar">
+    <div id="friends-div" class="list-group">
+      {% if userType === "admin" %}
+          <center>All Users Enrolled</center>
+      {% else %}
+          <center>All Friends in Course</center>
+      {% endif %}
+        {% for friend in friends %}
+        <a href="/profile?id={{friend.username}}" class="list-group-item">
+            {{friend.username}}
+            <span style="float: right; color: {% if friend.online %}green{% else %}red{% endif %}">
+                ● {% if friend.online %}online{% else %}offline{% endif %}
+            </span>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
