@@ -6,23 +6,29 @@ var Course = require("../models/course");
 exports.postNewUser = function(req, res) {
     console.log("New User");
     console.log(req.body);
+    var newUser = new User({
+                username:req.body.username,
+                password:req.body.password,
+                type:req.body.usertype,
+                online:true,
+                courses:null,
+                friends: null
+            });
     
     User.findOne({ username : req.body.username }, function(err, user) {
         if (err) throw err;
-
         if (user) res.json({status: 1});
         else {
-            var newUser = new User({
-                username:req.body.username,
-                password:req.body.password,
-                type:req.body.user-type,
-                online:true
-            });
-            
              newUser.save(function(err, newUser) {
-                 if (err) throw err;
-                 res.send({status: 0});
+                if (err) throw err;
+                console.log("User saved successfully");
              })
+            let userdata = JSON.parse(JSON.stringify(newUser));
+            console.log(userdata);
+            delete userdata._id;
+            delete userdata.password;
+            req.session.user = userdata;
+            res.json({status: 0, userdata: userdata}); 
         }
     });
 
