@@ -14,7 +14,7 @@ exports.postNewUser = function(req, res) {
                 courses:null,
                 friends: null
             });
-    
+
     User.findOne({ username : req.body.username }, function(err, user) {
         if (err) throw err;
         if (user) res.json({status: 1});
@@ -22,13 +22,13 @@ exports.postNewUser = function(req, res) {
              newUser.save(function(err, newUser) {
                 if (err) throw err;
                 console.log("User saved successfully");
-             })
+            });
             let userdata = JSON.parse(JSON.stringify(newUser));
             console.log(userdata);
             delete userdata._id;
             delete userdata.password;
             req.session.user = userdata;
-            res.json({status: 0, userdata: userdata}); 
+            res.json({status: 0});
         }
     });
 
@@ -46,10 +46,11 @@ exports.postLogin = function(req, res) {
                 if (err) throw err;
             });
             let userdata = JSON.parse(JSON.stringify(user));
+            console.log(userdata);
             delete userdata._id;
             delete userdata.password;
             req.session.user = userdata;
-            res.json({status: 0, userdata: userdata});
+            res.json({status: 0});
         }
     });
 };
