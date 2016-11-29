@@ -55,7 +55,21 @@
                 <span id="form-feedback" style="color: red"></span>
             </form>
             {% elif session.user.type === "tutor" %}
-            Not implemented
+            <form id="post-form-tut" class="list-group-item">
+                <p>Post an ad and connect with students.</p>
+                <p>Subject<br>
+                    <input type="text" name="subject" style="width: 100%">
+                </p>
+                <p>Introduction:<br>
+                    <input type="text" name="intro" style="width: 100%"
+                    placeholder="I'm a good tutor.">
+                </p>
+                <p>Tutoring Rate: <span id="pay-amount">$ 50 / hour</span><br>
+                    <input type="range" id="pay" name="range">
+                </p>
+                <input type="submit" value="Post">
+                <span id="form-feedback" style="color: red"></span>
+            </form>
             {% endif %}
         </div>
     </div>
