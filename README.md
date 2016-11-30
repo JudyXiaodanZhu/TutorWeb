@@ -11,7 +11,5 @@ To get server function:
 
 4. Open another terminal and run `./start_server.sh`
 
-
-
 <br><br>
-Note: If you want to completely clean the database, run ....
+If you want to restore the database, run `./start_db.sh`.
