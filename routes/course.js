@@ -94,5 +94,66 @@ exports.getCourse = function(req, res)
 
 exports.addPost = function(req, res)
 {
-    console.log(req);
+    let question = req.body.textQuestion;
+    let username = req.session.user.username;
+    let userType = req.session.user.type;
+    let currDate = getDate();
+    let currTime = getTime();
+    let groupCode = req.url.substring(req.url.indexOf("id=") + "id=".length).trim();
+    console.log("------------------------------------");
+    console.log("Group - " + groupCode);
+    console.log("Post Text - " + question);
+    console.log("User - " + username);
+    console.log("Type of User - " + userType);
+    console.log("Date - " + currDate);
+    console.log("Time - " + currTime);
+    Course.find(function(error, cursor)
+    {
+        for(let i = 0; i < cursor.length; i++)
+        {
+            if(cursor[i].code.toLowerCase() == groupCode.toLowerCase())
+            {
+                console.log("Code - " + cursor[i].code);
+                console.log("Posts - " + cursor[i].posts);
+                console.log("Pinned - " + cursor[i].pinned);
+                console.log("Students - " + cursor[i].students);
+                console.log("Tutors - " + cursor[i].tutors);
+            }
+        }
+    });
+  /*
+  text: {type: String, required: true},
+  author: {type: String, required: true},
+  date: {type: Date, required: true},
+  time: {type: Date, required: true}
+  responses:
+  */
+    console.log("------------------------------------");
+}
+
+function getDate()
+{
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; //January is 0!
+    let yyyy = today.getFullYear();
+
+    if(dd < 10)
+    {
+        dd = '0' + dd
+    }
+
+    if(mm < 10)
+    {
+        mm = '0' + mm
+    }
+
+    today = mm + '/' + dd + '/' + yyyy;
+    return today;
+}
+
+function getTime()
+{
+    let d = new Date();
+    return(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
 }
