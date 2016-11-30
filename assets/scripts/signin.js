@@ -1,7 +1,7 @@
 'use strict';
 
 var signin = {};
-
+ 
 signin.init = function() {
     $("#signup-form").submit(function(event) {
         event.preventDefault();
@@ -9,13 +9,14 @@ signin.init = function() {
         let json_submit = {};
         for (let i = 0; i < json_raw.length; i++) {
             json_submit[json_raw[i].name] = json_raw[i].value;
-             console.log(json_raw[i].value);
         }
 
         $.post("/signup", json_submit, function(result) {
             let status = result.status;
-            console.log(status);
-            if (status === 1) $("#error-message").text("User already exists");
+           
+            if (status === 3) $("#error-message").text("Password must be 6-20 characters long");
+            else if (status === 1) $("#error-message").text("User already exists");
+            else if (status === 2) $("#error-message").text("Password doesn't match");
             else if (status === 0) {
                 console.log("here");
                 window.location = "/dashboard";

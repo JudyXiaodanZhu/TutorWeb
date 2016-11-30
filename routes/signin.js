@@ -2,35 +2,56 @@
 
 var User = require("../models/user");
 var Course = require("../models/course");
+var express = require('express');
 
 exports.postNewUser = function(req, res) {
     console.log("New User");
     console.log(req.body);
-    var newUser = new User({
-                username:req.body.username,
-                password:req.body.password,
-                type:req.body.usertype,
-                online:true,
-                courses:null,
-                friends: null
-            });
 
-    User.findOne({ username : req.body.username }, function(err, user) {
-        if (err) throw err;
-        if (user) res.json({status: 1});
-        else {
-             newUser.save(function(err, newUser) {
-                if (err) throw err;
-                console.log("User saved successfully");
-            });
-            let userdata = JSON.parse(JSON.stringify(newUser));
-            console.log(userdata);
-            delete userdata._id;
-            delete userdata.password;
-            req.session.user = userdata;
-            res.json({status: 0});
+    req.assert('password', 'A student number is required').notEmpty();
+    
+
+    req.checkBody('password',
+                  'Student number not formatted properly.').isPassword();
+
+    var errors = req.validationErrors();
+    var mappedErrors = req.validationErrors(true);
+
+    if (errors) {
+        res.send({status:3});
+    } 
+    else{
+        if(req.body.password!=req.body.confirmpassword){
+            res.send({status:2});
+            return;
         }
-    });
+        
+        var newUser = new User({
+                    username:req.body.username,
+                    password:req.body.password,
+                    type:req.body.usertype,
+                    online:true,
+                    courses:null,
+                    friends: null
+                });
+
+        User.findOne({ username : req.body.username }, function(err, user) {
+            if (err) throw err;
+            if (user) res.json({status: 1});
+            else {
+                 newUser.save(function(err, newUser) {
+                    if (err) throw err;
+                    console.log("User saved successfully");
+                });
+                let userdata = JSON.parse(JSON.stringify(newUser));
+                console.log(userdata);
+                delete userdata._id;
+                delete userdata.password;
+                req.session.user = userdata;
+                res.json({status: 0});
+            }
+        });
+    }
 
 };
 
