@@ -2,43 +2,85 @@
 
 {% block body %}
     <div class="col-sm-8 col-md-8">
-        <div id="main-div" class="list-group">
-    {% if type === "user"%}
+    <div id="main-div" class="list-group">
+    {% if type === "tutors"%}
+            <h1 class='statusReminder'>You are logged in as a student, your searching results for users woule be tutors only.</h1>
+            <h1 class='foundMessage'>Found {{users.length}} tutor(s)</h1>
             {% for user in users %}
             <div class="list-group-item">
                 {{user.username}}
                 <a id="add-friend-{{user.username}}" style="float: right">Make friend</a>
+                <span id='friended-{{user.username}}' class='friended'>
+                </span>
                 <br><br>
                 Courses that are avaliable to tutor:
                 {% for tutorCourse in user.courses %}
                 <span class="list-group-item">
                     Course code:   {{tutorCourse}}
                     <a id="add-course-{{tutorCourse}}" style="float: right">Add</a>
+                    <span id='courseAdded-{{tutorCourse}}' class='courseAdded'>
+                    </span>
                 </span>
+
+
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+    {% elif type === "students"%}
+            <h1 class='statusReminder'>You are logged in as a tutor, your searching results for users woule be students only.</h1>
+            <h1 class='foundMessage'>Found {{users.length}} student(s)</h1>
+            {% for user in users %}
+            <div class="list-group-item">
+                {{user.username}}
+                <a id="add-friend-{{user.username}}" style="float: right">Make friend</a>
+                <span id='friended-{{user.username}}' class='friended'>
+                </span>
+                <br><br>
+                Courses that this students are looking for a tutor :
+                {% for studentCourse in user.courses %}
+                <span class="list-group-item">
+                    Course code:   {{studentCourse}}
+                    <a id="add-course-{{studentCourse}}" style="float: right">Add</a>
+                    <span id='courseAdded-{{studentCourse}}' class='courseAdded'>
+                    </span>
+                </span>
+
+
                 {% endfor %}
             </div>
             {% endfor %}
 
     {% elif type === "course" %}
-            Found {{data.length}} courses!
+            {% if status === 'tutor' %}
+            <h1 class='statusReminder'>You are logged in as a {{status}}, indicate the course(s) that you want to <b>TUTOR</b> by clicking Add.</h1>
+            {% elif status === 'student' %}
+            <h1 class='statusReminder'>You are logged in as a {{status}}, indicate the course(s) that you <b>LOOK FOR A TUTOR</b> by clicking Add.</h1>
+            {% endif %}
+            <h1 class='foundMessage'>Found {{data.length}} course(s)!</h1>
             {% for course in data %}
             <span class="list-group-item">
                 Course code: {{course.code}}
                 <a id="add-course-{{course.code}}" style="float: right">Add</a>
+                <span id='courseAdded-{{course.code}}' class='courseAdded'>
+                </span>
             </span>
             {% endfor %}
         </div>
 
         <div id="main-div" class="list-group">
-            Related tutors:<br>
+            <h1 class='foundMessage'>Related tutor(s): </h1>
             {% for course in data %}
-            {{course.code}}:
+            {{course.code}} has {{course.tutors.length}} tutor(s):
             {% for tutor in course.tutors %}
             <span class="list-group-item">
                 Tutor: {{tutor}}
                 <a id="add-friend-{{tutor}}" style="float: right">Make friend</a>
+                <span id='friended-{{tutor}}' class='friended'>
+                </span>
             </span>
             {% endfor %}
+            <br>
             {% endfor %}
         </div>
     {% endif %}

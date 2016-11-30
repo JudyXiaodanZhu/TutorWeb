@@ -7,13 +7,15 @@
                 "author": "Syugen",
                 "date": "2017-12-31T23:07:11Z"
             }
-        ]
+        ],
+        "tutors":["xueba"]
     },
     {
         "code": "CSC148"
     },
     {
-        "code": "CSC165"
+        "code": "CSC165",
+        "tutors":["xueba"]
     },
     {
         "code": "CSC207"
@@ -23,10 +25,18 @@
     },
     {
         "code": "CSC369",
-        "tutors": ["dashen"]
+        "tutors": ["dashen","xueba"]
     },
     {
         "code": "CSC373",
-        "tutors": ["dashen"]
+        "tutors": ["dashen","xueba"]
+    },
+    {
+        "code":"CSC411",
+        "tutors":["xueba"]
+    },
+    {
+        "code":"GGR373H1",
+        "tutors":["Jimmy"]
     }
 ]

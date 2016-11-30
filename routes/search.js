@@ -14,21 +14,32 @@ exports.getSearch = function(req, res) {
     //the below if statement has covered all the possibilities
     if (content.length === 0) {
         res.render("search.html");
-    } else if (content.match(/\d{3}/g)) {
+    } else if (content.match(/\d{3}/g)) { //search course
         Course.find({code: {$regex:content}},function(err,courses){
             if(err) throw err;
-            res.render("search.html", {type: "course", data: courses, scripts: ["search"]});
+            res.render("search.html", {status:req.session.user.type,type: "course", data: courses, scripts: ["search"]});
         });
-    } else if (content.match(/[A-Za-z]{3}\d{3}/g)) {
+    } else if (content.match(/[A-Za-z]{3}\d{3}/g)) { //search course
         Course.findOne({code:content.toUpperCase()},function(err,course){
             if(err) throw err;
-            res.render("search.html", {type: "course", data: [course], scripts: ["search"]});
+            res.render("search.html", {status:req.session.user.type,type: "course", data: [course], scripts: ["search"]});
         });
     } else {
-        User.find({type:'tutor',username:{$regex:content}},function(err,users){
-            if(err) throw err;
-            res.render("search.html", {type: "user", users: users, scripts: ["search"]});
-        });
+         //search tutors, while logged in as a student
+        if(req.session.user.type == 'student'){
+            console.log(req.session.user.type + ' should be student');
+            User.find({type:'tutor',username:{$regex:content}},function(err,users){
+                if(err) throw err;
+                res.render("search.html", {type: "tutors", users: users, scripts: ["search"]});
+            });
+        }else if(req.session.user.type == 'tutor'){//search students, while logged in as a tutor
+            console.log(req.session.user.type + ' should be tutor' );
+            User.find({type:'student',username:{$regex:content}},function(err,users){
+                if(err) throw err;
+                res.render("search.html", {type: "students", users: users, scripts: ["search"]});
+            });
+        }
+        //search students,  logged in as a tutor
     }
 };
 
@@ -48,7 +59,7 @@ exports.makeFriends = function(req, res){
           user.friends.push(f2);
           user.save(function(err){
               if(err) throw err;
-              console.log(user);
+              //console.log(user);
           })
       }
     })
@@ -60,9 +71,11 @@ exports.makeFriends = function(req, res){
           user.friends.push(f1);
           user.save(function(err){
               if(err) throw err;
-              console.log(user);
-              res.send(f1 + ' and ' + f2 + ' make friends success');
+              //console.log(user);
           })
+          return res.send('Success');
+      }else{
+          return res.send('You are already friends.');
       }
     })
 }
@@ -84,14 +97,23 @@ exports.addCourse = function(req,res){
                 course.tutors.push(req.session.user.username);
             }
         }
-        course.save(function(err, result) {if(err) throw err;});
+        course.save(function(err, result) {
+            if(err) throw err;
+        });
     });
 
     User.findOne({ username: req.session.user.username }, function(err, user){
         if (err) throw err;
-        user.courses.push(courseCode);
-        user.save(function(err, result) {if(err) throw err;});
-    });
+        if(user.courses.indexOf(courseCode )== -1){
+            user.courses.push(courseCode);
+            user.save(function(err, result) {
+                if(err) throw err;
+            });
+            return res.send('Success');
+        }else{
+            return res.send('Course previously added.');
+        }
+    })
 }
 //note: need to clean and re-make the mongo database to make it 100% correct..
 //Raymond Ends......
