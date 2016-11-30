@@ -104,13 +104,6 @@ exports.addPost = function(req, res)
                    "responses": []}];
     let currID;
     let currPosts;
-    console.log("------------------------------------");
-    console.log("Group - " + groupCode);
-    console.log("Post Text - " + question);
-    console.log("User - " + username);
-    console.log("Type of User - " + userType);
-    console.log("Date - " + currDate);
-    console.log("Time - " + currTime);
 
     getRows(groupCode, newPost, function(err, val)
     {
@@ -120,13 +113,22 @@ exports.addPost = function(req, res)
           }
           else
           {
-              console.log(val[0]);
-              console.log(val[1]);
-              Course.update({_id:val[0]}, {$set: {"posts":val[1]}});
-          }
-
-          console.log("------------------------------------");
-    });
+              console.log(val[0]); //ID
+              console.log(val[1]); //Posts.
+              Course.update({_id:val[0]}, {$set:{posts:val[1]}}, function(err, result)
+              {
+                    if(err)
+                    {
+                        console.log("Error Updating Course Table, at row with _id: " + val[0] + "\n with new posts: " + val[1] + "\n");
+                    }
+                    else
+                    {
+                        console.log("Update successful for Course Table, at row with _id: " + val[0]);
+                    }
+              });
+            }
+      });
+}
   /*
   text: {type: String, required: true},
   author: {type: String, required: true},
@@ -134,7 +136,6 @@ exports.addPost = function(req, res)
   time: {type: Date, required: true}
   responses:
   */
-}
 
 function getRows(groupCode, newPost, callback)
 {
