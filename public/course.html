@@ -23,7 +23,6 @@
 <center><h2>{{currCourse}} Group Page</h2></center><br>
   <h3>Welcome {{username}}</h3>
   <div id="posts-div" class="list-group-item">
-      <textarea rows="7" style="resize:vertical; width:100%;" placeholder="What question would you like to ask?"></textarea><br><br>
       <style>
           .button {
             display: inline-block;
@@ -64,11 +63,10 @@
             right: 0;
           }
       </style>
-      <button id="postButton" class="button" style="vertical-align:middle"><span>Post </span></button>
-
-      <script>
-
-      </script>
+      <form action="/course?id={{currCourse}}" method="post">
+          <textarea name="textQuestion" rows="7" style="resize:vertical; width:100%;" placeholder="What question would you like to ask?"></textarea><br><br>
+          <button name="postButton" class="button" style="vertical-align:middle"><span>Post </span></button>
+      </form>
   </div>
   <br><br><br><br><br><br>
 </div>

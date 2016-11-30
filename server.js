@@ -67,6 +67,7 @@ app.post('/addCourse', search.addCourse);// TODO Add feedback
 //Raymond Ends..
 
 app.get("/course", course.getCourse);// TODO Not implemented (Jack)
+app.post("/course", course.addPost);
 // Other functions needed in course.js
 
 app.get("/profile", profile.getProfile);// Done

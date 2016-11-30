@@ -90,7 +90,125 @@ exports.getCourse = function(req, res)
             });
         });
     }
-
-
-
 };
+
+exports.addPost = function(req, res)
+{
+    let question = req.body.textQuestion;
+    let username = req.session.user.username;
+    let userType = req.session.user.type;
+    let currDate = getDate();
+    let currTime = getTime();
+    let groupCode = req.url.substring(req.url.indexOf("id=") + "id=".length).trim();
+    let newPost = [{"text": question, "author": username, "date": currDate + currTime,
+                   "responses": []}];
+    let currID;
+    let currPosts;
+    console.log("------------------------------------");
+    console.log("Group - " + groupCode);
+    console.log("Post Text - " + question);
+    console.log("User - " + username);
+    console.log("Type of User - " + userType);
+    console.log("Date - " + currDate);
+    console.log("Time - " + currTime);
+
+    getRows(groupCode, newPost, function(err, val)
+    {
+          if(err)
+          {
+              console.log("Error with retreiving posts for courses.");
+          }
+          else
+          {
+              console.log(val[0]);
+              console.log(val[1]);
+              Course.update({_id:val[0]}, {$set: {"posts":val[1]}});
+          }
+
+          console.log("------------------------------------");
+    });
+  /*
+  text: {type: String, required: true},
+  author: {type: String, required: true},
+  date: {type: Date, required: true},
+  time: {type: Date, required: true}
+  responses:
+  */
+}
+
+function getRows(groupCode, newPost, callback)
+{
+  Course.find(function(error, cursor)
+  {
+    if(error)
+    {
+        callback("error", null, []);
+    }
+    else
+    {
+        let currID;
+        let currPosts;
+        for(let i = 0; i < cursor.length; i++)
+        {
+            if(cursor[i].code.toLowerCase() == groupCode.toLowerCase())
+            {
+                currID = cursor[i]._id;
+                currPosts = cursor[i].posts;
+                break;
+            }
+        }
+        let p = [];
+        for(let i = 0; i < currPosts.length; i++)
+        {
+            p.push(currPosts[i]);
+        }
+        p.push(newPost[0]);
+        callback(null, [currID, p]);
+    }
+  });
+}
+
+function getDate()
+{
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; //January is 0!
+    let yyyy = today.getFullYear();
+
+    if(dd < 10)
+    {
+        dd = '0' + dd
+    }
+
+    if(mm < 10)
+    {
+        mm = '0' + mm
+    }
+
+    today = yyyy + '-' + mm + '-' + dd + "T";
+    return today;
+}
+
+function getTime()
+{
+    let d = new Date();
+    let hh = d.getHours();
+    let mm = d.getMinutes();
+    let ss = d.getSeconds();
+
+    if(hh < 10)
+    {
+        hh = '0' + hh;
+    }
+
+    if(mm < 10)
+    {
+        mm = '0' + mm;
+    }
+
+    if(ss < 10)
+    {
+        ss = '0' + ss;
+    }
+    return(hh + ":" + mm + ":" + ss + "Z");
+}
