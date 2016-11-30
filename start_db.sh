@@ -8,6 +8,6 @@ mkdir data
 #"C:\Program Files\MongoDB\Server\3.2\bin\mongod.exe" --dbpath=$PWD/data
 
 #This line allows Mac (linux) users to run the database.
-mongod --dpath=$PWD/data
+mongod --dbpath=$PWD/data
 
 

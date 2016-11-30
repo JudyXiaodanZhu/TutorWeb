@@ -113,17 +113,15 @@ exports.addPost = function(req, res)
           }
           else
           {
-              console.log(val[0]); //ID
-              console.log(val[1]); //Posts.
               Course.update({_id:val[0]}, {$set:{posts:val[1]}}, function(err, result)
               {
                     if(err)
                     {
-                        console.log("Error Updating Course Table, at row with _id: " + val[0] + "\n with new posts: " + val[1] + "\n");
+                        console.log("Error: Updating Course Table, at row with _id: " + val[0] + "\n with new posts: " + val[1] + "\n");
                     }
                     else
                     {
-                        console.log("Update successful for Course Table, at row with _id: " + val[0]);
+                        console.log("Success: Updating Course Table, at row with _id: " + val[0] + "\n");
                     }
               });
             }
