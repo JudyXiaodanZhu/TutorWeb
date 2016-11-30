@@ -6,14 +6,17 @@
             <div>
                 <h1 class="text-center login-title">Create a Find Tutor Account</h1>
                 <div class="account-wall">
-                    <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
+                    <img class="profile-img" src="http://icons.iconarchive.com/icons/mahm0udwally/all-flat/256/Computer-icon.png"
                         alt="">
                     <form id="signup-form" class="form-signin">
                      
                         <input type="text" name="username" class="form-control" placeholder="Choose a username" required autofocus>
-                        <input type="password" name="password" class="form-control" placeholder="Password" required>
-                        <input type="radio" name="usertype" value="student">Student
-                        <input type="radio" name="usertype" value="tutor">Tutor
+                        <input type="password" name="password" class="form-control" placeholder="Password must be 6-20 characters" required>
+                        <input type="password" id="confirmpassword" name="confirmpassword" class="form-control" placeholder="Confirm Password" required>
+                        
+                        <input type="radio" id="radio2" name="usertype" value="student"> <label for="radio2"><span></span>Student</label>
+                        <input type="radio" id="radio1" name="usertype" value="tutor"> <label for="radio1"><span></span>Tutor</label>
+                        <br>
                         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
                         <p id="error-message" class="checkbox pull-left error">
                          

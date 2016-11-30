@@ -3,6 +3,7 @@
     max-width: 330px;
     padding: 15px;
     margin: 0 auto;
+    margin-bottom: 50px;
 }
 .form-signin .form-signin-heading, .form-signin .checkbox
 {
@@ -34,10 +35,67 @@
 }
 .form-signin input[type="password"]
 {
-    margin-bottom: 10px;
+    margin-bottom: -1px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+.form-signin input#confirmpassword
+{
+    margin-bottom: 15px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.form-signin input[type="radio"] {
+    display:none;
+}
+.form-signin input[type="radio"] + label {
+    font-size:14px;
+    margin-bottom: 15px;
+}
+
+.form-signin input[type="radio"] + label span {
+    display:inline-block;
+    width:19px;
+    height:19px;
+    margin:-1px 4px 0 0;
+    vertical-align:middle;
+    cursor:pointer;
+    -moz-border-radius:  50%;
+    border-radius:  50%;
+
+}
+
+.form-signin input[type="radio"] + label span {
+     background-color: white;
+     border: 2px solid grey;
+}
+
+.form-signin input[type="radio"]:checked + label span{
+     background-color: grey;
+     border: 2px solid grey;
+}
+
+.form-signin input[type="radio"] + label span,
+.form-signin input[type="radio"]:checked + label span {
+  -webkit-transition:background-color 0.4s linear;
+  -o-transition:background-color 0.4s linear;
+  -moz-transition:background-color 0.4s linear;
+  transition:background-color 0.4s linear;
+  color:  rgb(253, 105, 7);
+}
+
+.form-signin button#login{
+    margin-top:15px;
+}
+.form-signin a[type="new-account"]
+{
+    margin-top: 20px;
+    font-size:16px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
 .account-wall
 {
     margin-top: 20px;
@@ -60,9 +118,6 @@
     height: 96px;
     margin: 0 auto 10px;
     display: block;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
 }
 .need-help
 {

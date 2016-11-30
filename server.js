@@ -4,6 +4,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var nunjucks = require('nunjucks');
 var session = require('express-session');
+var expressValidator = require('express-validator');
 
 var course = require("./routes/course");
 var dashboard = require("./routes/dashboard");
@@ -20,6 +21,17 @@ app.use(express.static(__dirname + '/assets'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({ secret: 'What is this', resave: false, saveUninitialized: false }));
+app.engine('.html', require('ejs').__express);
+app.set('views', __dirname);
+app.set('view engine', 'html');
+
+app.use(expressValidator({
+    customValidators: {
+        isPassword: function(value) {
+            return value.search( /[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,20}$/ ) !== -1;
+        },
+    }
+}));
 
 app.use(function(req, res, next) {
     res.locals.session = req.session;
