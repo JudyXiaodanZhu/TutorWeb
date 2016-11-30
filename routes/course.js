@@ -90,7 +90,9 @@ exports.getCourse = function(req, res)
             });
         });
     }
-
-
-
 };
+
+exports.addPost = function(req, res)
+{
+    console.log(req);
+}
