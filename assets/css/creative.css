@@ -438,3 +438,7 @@ body {
     font-size:100%;
     color:grey;
 }
+
+.userNameAfterSearch{
+    color:purple;
+}

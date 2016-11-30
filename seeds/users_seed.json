@@ -30,7 +30,7 @@
       "username": "Dummy2",
       "password": "123",
       "type": "student",
-      "courses": ["CSC369","CSC373","CSC411","GGR373H1"],
+      "courses": ["CSC369","CSC373","CSC411","GGR373"],
       "friends": ["Syugen", "Dummy"]
     },
     {
@@ -51,7 +51,7 @@
         "username":"Jimmy",
         "password":"123",
         "type":"tutor",
-        "courses":["GGR373H1"],
+        "courses":["GGR373"],
         "friends":[]
     }
 ]

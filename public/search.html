@@ -8,8 +8,8 @@
             <h1 class='foundMessage'>Found {{users.length}} tutor(s)</h1>
             {% for user in users %}
             <div class="list-group-item">
-                {{user.username}}
-                <a id="add-friend-{{user.username}}" style="float: right">Make friend</a>
+                <span class="userNameAfterSearch"> {{user.username}} </span>
+                <a id="add-friend-{{user.username}}" style="float: right">Make friends</a>
                 <span id='friended-{{user.username}}' class='friended'>
                 </span>
                 <br><br>
@@ -19,6 +19,33 @@
                     Course code:   {{tutorCourse}}
                     <a id="add-course-{{tutorCourse}}" style="float: right">Add</a>
                     <span id='courseAdded-{{tutorCourse}}' class='courseAdded'>
+                    </span>
+                    <br>
+                    {% for post in posts %}
+                    {% if post.username == user.username and  post.subject == tutorCourse %}
+                    <br>Post: <br>
+                    <span class='postTitle'>
+                        Title: {{post.title}}
+                    </span>
+                    <br>
+                    <span class='postDetail'>
+                        Detail: {{post.detail}}
+                    </span>
+                    <br>
+                    <span class='postWhen'>
+                        Expected time to be tutored: {{post.when}}
+                    </span>
+                    <br>
+                    <span class='postData'>
+                        Date of making this post: {{post.date}}
+                    </span>
+                    <br>
+                    <span class='postEmail'>
+                        Email: <a href="mailto:{{post.email}}">Send an email</a>
+                    </span>
+                    <br>
+                    {% endif %}
+                    {% endfor %}
                     </span>
                 </span>
 
@@ -32,8 +59,8 @@
             <h1 class='foundMessage'>Found {{users.length}} student(s)</h1>
             {% for user in users %}
             <div class="list-group-item">
-                {{user.username}}
-                <a id="add-friend-{{user.username}}" style="float: right">Make friend</a>
+                <span class="userNameAfterSearch">{{user.username}}</span>
+                <a id="add-friend-{{user.username}}" style="float: right">Make friends</a>
                 <span id='friended-{{user.username}}' class='friended'>
                 </span>
                 <br><br>
@@ -44,7 +71,33 @@
                     <a id="add-course-{{studentCourse}}" style="float: right">Add</a>
                     <span id='courseAdded-{{studentCourse}}' class='courseAdded'>
                     </span>
-                </span>
+                    <br>
+                    {% for post in posts %}
+                    {% if post.username == user.username and  post.subject == studentCourse %}
+                    <br>Post: <br>
+                    <span class='postTitle'>
+                        Title: {{post.title}}
+                    </span>
+                    <br>
+                    <span class='postDetail'>
+                        Detail: {{post.detail}}
+                    </span>
+                    <br>
+                    <span class='postWhen'>
+                        Expected time to be tutored: {{post.when}}
+                    </span>
+                    <br>
+                    <span class='postData'>
+                        Date of making this post: {{post.date}}
+                    </span>
+                    <br>
+                    <span class='postEmail'>
+                        Email: <a href="mailto:{{post.email}}">Send an email</a>
+                    </span>
+                    <br>
+                    {% endif %}
+                    {% endfor %}
+                    </span>
 
 
                 {% endfor %}
@@ -66,24 +119,95 @@
                 </span>
             </span>
             {% endfor %}
-        </div>
 
+
+        {% if status === 'student' %}
         <div id="main-div" class="list-group">
             <h1 class='foundMessage'>Related tutor(s): </h1>
             {% for course in data %}
             {{course.code}} has {{course.tutors.length}} tutor(s):
             {% for tutor in course.tutors %}
             <span class="list-group-item">
-                Tutor: {{tutor}}
-                <a id="add-friend-{{tutor}}" style="float: right">Make friend</a>
+                <span class="userNameAfterSearch">Tutor: {{tutor}}</span>
+                <a id="add-friend-{{tutor}}" style="float: right">Make friends</a>
                 <span id='friended-{{tutor}}' class='friended'>
                 </span>
+                <br>
+                {% for post in posts %}
+                {% if post.username == tutor and  post.subject == course.code %}
+                <br>Post: <br>
+                <span class='postTitle'>
+                    Title: {{post.title}}
+                </span>
+                <br>
+                <span class='postDetail'>
+                    Detail: {{post.detail}}
+                </span>
+                <br>
+                <span class='postWhen'>
+                    Expected time to be tutored: {{post.when}}
+                </span>
+                <br>
+                <span class='postData'>
+                    Date of making this post: {{post.date}}
+                </span>
+                <br>
+                <span class='postEmail'>
+                    Email: <a href="mailto:{{post.email}}">Send an email</a>
+                </span>
+                <br>
+                {% endif %}
+                {% endfor %}
             </span>
             {% endfor %}
             <br>
             {% endfor %}
         </div>
-    {% endif %}
+
+        {% elif status === 'tutor' %}
+        <div id="main-div" class="list-group">
+            <h1 class='foundMessage'>Related student(s): </h1>
+            {% for course in data %}
+            {{course.code}} has {{course.students.length}} student(s):
+            {% for student in course.students %}
+            <span class="list-group-item">
+                <span class="userNameAfterSearch">Student: {{student}}</span>
+                <a id="add-friend-{{student}}" style="float: right">Make friends</a>
+                <span id='friended-{{student}}' class='friended'>
+                </span>
+                <br>
+                {% for post in posts %}
+                {% if post.username == student and  post.subject == course.code %}
+                <br>Post: <br>
+                <span class='postTitle'>
+                    Title: {{post.title}}
+                </span>
+                <br>
+                <span class='postDetail'>
+                    Detail: {{post.detail}}
+                </span>
+                <br>
+                <span class='postWhen'>
+                    Expected time to be tutored: {{post.when}}
+                </span>
+                <br>
+                <span class='postData'>
+                    Date of making this post: {{post.date}}
+                </span>
+                <br>
+                <span class='postEmail'>
+                    Email: <a href="mailto:{{post.email}}">Send an email</a>
+                </span>
+                <br>
+                {% endif %}
+                {% endfor %}
+            </span>
+            {% endfor %}
+            <br>
+            {% endfor %}
+        </div>
+        {% endif %}
+    {%  endif   %}
 
     </div>
 {% endblock %}
