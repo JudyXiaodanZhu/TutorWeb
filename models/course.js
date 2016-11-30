@@ -8,7 +8,6 @@ var courseSchema = new Schema(
             text: {type: String, required: true},
             author: {type: String, required: true},
             date: {type: Date, required: true},
-            time: {type: Date, required: true},
             responses: [{
                 text: {type: String, required: true}
             }]
@@ -17,7 +16,6 @@ var courseSchema = new Schema(
             text: {type: String, required: true},
             author: {type: String, required: true},
             date: {type: Date, required: true},
-            time: {type: Date, required: true},
             responses: [{
                 text: {type: String, required: true}
             }]

@@ -29,7 +29,17 @@
     {
         "code": "CSC209",
         "students":[],
-        "tutors":[]
+        "tutors":[],
+        "posts":[{
+          "text":"Test1",
+          "author":"Raymond",
+          "date":"2016-10-29T15:54:10Z",
+          "responses":[]},
+          {
+            "text":"Test2",
+            "author":"Judy",
+            "date":"2016-10-28T15:54:10Z",
+            "responses":[]}]
     },
     {
         "code": "CSC369",
