@@ -136,7 +136,7 @@ exports.addPost = function(req, res)
                         console.log("Success: Updating Course Table, at row with _id: " + val[0] + "\n");
                         let v = __dirname;
                         v = v.substring(0, v.indexOf('/routes')).trim();
-
+                        res.redirect(req.url);
                     }
               });
             }
