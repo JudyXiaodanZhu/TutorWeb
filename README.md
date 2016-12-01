@@ -9,7 +9,7 @@ To get server function:
 
 3. Run `./start_db.sh`
 
-4. Open another terminal and run `./start_server.sh`
+4. Open another terminal, repeat step and then run `./start_server.sh`
 
 <br><br>
 If you want to restore the database, run `./start_db.sh`.
