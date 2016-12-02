@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 
 {% block body %}
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var courseGroupSocket = io();
+  courseGroupSocket.on('message', function(data){
+      alert(data.username);
+      alert(data.msg);
+    });
+</script>
 <form action="/course?id={{currCourse}}" method="post">
 </form>
 <div class="col-sm-3 col-md-3 sidebar">
@@ -26,7 +34,8 @@
   <h3>Welcome {{username}}</h3>
   <div id="posts-div" class="list-group-item">
       <style>
-          .button {
+          #submitPost
+          {
             display: inline-block;
             border-radius: 4px;
             background-color: #4d94ff;
@@ -38,6 +47,21 @@
             width: 100px;
             transition: all 0.5s;
             cursor: pointer;
+          }
+
+          #submitResponse
+          {
+              display: inline-block;
+              border-radius: 4px;
+              background-color: #ff751a;
+              border: none;
+              color: #FFFFFF;
+              text-align: center;
+              font-size: 12px;
+              padding: 5px;
+              width: 125px;
+              transition: all 0.5s;
+              cursor: pointer;
           }
 
           .button span {
@@ -67,8 +91,14 @@
       </style>
       <form action="/course?id={{currCourse}}" method="post">
           <textarea name="textQuestion" rows="7" required="required" style="resize:vertical; width:100%;" placeholder="What question would you like to ask?"></textarea><br><br>
-          <button name="postButton" class="button" style="vertical-align:middle"><span>Post </span></button>
+          <button id="submitPost" name="postButton" onclick="displayNewPost();" class="button" style="vertical-align:middle"><span>Post </span></button>
       </form>
+      <script>
+          function displayNewPost()
+          {
+                console.log("Displaying new post.");
+          }
+      </script>
   </div>
     {% for post in prevPosts %}
     <div id="{{post[0]}}{{post[1]}}" class="list-group-item">
@@ -77,6 +107,7 @@
               <legend>{{post[0]}}</legend>
                 &nbsp;&nbsp;&nbsp;&nbsp;<pre>{{post[1]}}</pre>
                 &nbsp;&nbsp;&nbsp;&nbsp;<textarea name="{{post[0]}}{{post[1]}}Response" required="required" rows="1" style="resize:vertical; width:100%;" placeholder="Reply to this Post"></textarea>
+                <button id="submitResponse" name="{{post[0]}}{{post[1]}}Response" class="button"><span>Post Response </span></button>
             </fieldset>
         </form>
         <br>

@@ -1,10 +1,13 @@
 'use strict';
 
 var express = require("express");
+var app = require("express")();
 var bodyParser = require("body-parser");
 var nunjucks = require('nunjucks');
 var session = require('express-session');
 var expressValidator = require('express-validator');
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 
 var course = require("./routes/course");
 var dashboard = require("./routes/dashboard");
@@ -12,9 +15,8 @@ var profile = require("./routes/profile");
 var signin = require("./routes/signin");
 var search = require("./routes/search");
 var User = require("./models/user");
-var Course = require("./models/course")
+var Course = require("./models/course");
 
-var app = express();
 nunjucks.configure('public', { autoescape: true, express: app });
 
 app.use(express.static(__dirname + '/assets'));
@@ -67,7 +69,124 @@ app.post('/addCourse', search.addCourse);// TODO Add feedback
 //Raymond Ends..
 
 app.get("/course", course.getCourse);// TODO Not implemented (Jack)
-app.post("/course", course.addPost);
+app.post("/course", function(req, res)
+{
+    let question = req.body.textQuestion;
+    let username = req.session.user.username;
+    let userType = req.session.user.type;
+    let currDate = getDate();
+    let currTime = getTime();
+    let groupCode = req.url.substring(req.url.indexOf("id=") + "id=".length).trim();
+    let newPost = [{"text": question, "author": username, "date": currDate + currTime,
+                   "responses": []}];
+    let currID;
+    let currPosts;
+
+    getRows(groupCode, newPost, function(err, val)
+    {
+          if(err)
+          {
+              console.log("Error with retreiving posts for courses.");
+          }
+          else
+          {
+              Course.update({_id:val[0]}, {$set:{posts:val[1]}}, function(err, result)
+              {
+                    if(err)
+                    {
+                        console.log("Error: Updating Course Table, at row with _id: " + val[0] + "\n with new posts: " + val[1] + "\n");
+                    }
+                    else
+                    {
+                        console.log("Success: Updating Course Table, at row with _id: " + val[0] + "\n");
+                        // let v = __dirname;
+                        // v = v.substring(0, v.indexOf('/routes')).trim();
+                        // res.redirect(req.url);
+                          console.log(username + ' added new post ' + val[1]);
+                          io.emit('message', {username: username, msg: question});
+                          console.log("--------------------------------");
+                    }
+              });
+            }
+      });
+
+      function getRows(groupCode, newPost, callback)
+      {
+        Course.find(function(error, cursor)
+        {
+          if(error)
+          {
+              callback("error", null, []);
+          }
+          else
+          {
+              let currID;
+              let currPosts;
+              for(let i = 0; i < cursor.length; i++)
+              {
+                  if(cursor[i].code.toLowerCase() == groupCode.toLowerCase())
+                  {
+                      currID = cursor[i]._id;
+                      currPosts = cursor[i].posts;
+                      break;
+                  }
+              }
+              let p = [];
+              for(let i = 0; i < currPosts.length; i++)
+              {
+                  p.push(currPosts[i]);
+              }
+              p.push(newPost[0]);
+              callback(null, [currID, p]);
+          }
+        });
+      }
+
+      function getDate()
+      {
+          let today = new Date();
+          let dd = today.getDate();
+          let mm = today.getMonth() + 1; //January is 0!
+          let yyyy = today.getFullYear();
+
+          if(dd < 10)
+          {
+              dd = '0' + dd
+          }
+
+          if(mm < 10)
+          {
+              mm = '0' + mm
+          }
+
+          today = yyyy + '-' + mm + '-' + dd + "T";
+          return today;
+      }
+
+      function getTime()
+      {
+          let d = new Date();
+          let hh = d.getHours();
+          let mm = d.getMinutes();
+          let ss = d.getSeconds();
+
+          if(hh < 10)
+          {
+              hh = '0' + hh;
+          }
+
+          if(mm < 10)
+          {
+              mm = '0' + mm;
+          }
+
+          if(ss < 10)
+          {
+              ss = '0' + ss;
+          }
+          return(hh + ":" + mm + ":" + ss + "Z");
+      }
+});
 // Other functions needed in course.js
 
 app.get("/profile", profile.getProfile);// Done
@@ -76,7 +195,6 @@ app.post("/removeCourse", profile.removeCourse);// Done
 app.post("/removeFriend", profile.removeFriend);// Done
 app.post("/removeTutorPost", profile.removeTutorPost);// Done
 
-
-var server = app.listen(3000, function(request, response) {
+server.listen(3000, function(request, response) {
     console.log("Running on 127.0.0.1:%s", server.address().port);
 });
