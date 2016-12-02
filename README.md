@@ -18,7 +18,7 @@ If you want to restore the database, run `./start_db.sh`.
 ## Purpose
 ## Required list of features
 
- ###User profile, authentication
+ ### User profile, authentication
    - [Login Page]
     - Users can signup/login by clicking on the buttons on the top right hand side.
     - Authenitcation:
@@ -28,20 +28,20 @@ If you want to restore the database, run `./start_db.sh`.
     -[student profile]
       - Students and tutors can edit their own profile page.
     
-  ###data set
+ ### Data set
     - [screen shot seeds folder?]
     - Sets of data can be retrieved, added, deleted and searched.
     
-  ###admin functionality
+ ### Admin functionality
     - [profile page]
       - Admin users can manage all users and courses. They can add, delete, edit any user profiles, postings and courses.
     
-  ###search 
+ ### Search 
     -[search page]
       -Users can search for courses and tutors. When they search for courses, the list of tutors avaliable for this course
       will be shown under the course title.
       
-  ###several different views
+ ### Different views
     -[main page]
     -[dashboard]
     -[course]
