@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% block body %}
+<form action="/course?id={{currCourse}}" method="post">
+</form>
 <div class="col-sm-3 col-md-3 sidebar">
 <div id="courses-div" class="list-group">
         {% if session.user.type === "admin" %}
@@ -46,7 +48,7 @@
           }
 
           .button span:after {
-            content: '»';
+            content: "»";
             position: absolute;
             opacity: 0;
             top: 0;
@@ -64,10 +66,22 @@
           }
       </style>
       <form action="/course?id={{currCourse}}" method="post">
-          <textarea name="textQuestion" rows="7" style="resize:vertical; width:100%;" placeholder="What question would you like to ask?"></textarea><br><br>
+          <textarea name="textQuestion" rows="7" required="required" style="resize:vertical; width:100%;" placeholder="What question would you like to ask?"></textarea><br><br>
           <button name="postButton" class="button" style="vertical-align:middle"><span>Post </span></button>
       </form>
   </div>
+    {% for post in prevPosts %}
+    <div id="{{post[0]}}{{post[1]}}" class="list-group-item">
+        <form>
+            <fieldset>
+              <legend>{{post[0]}}</legend>
+                &nbsp;&nbsp;&nbsp;&nbsp;<pre>{{post[1]}}</pre>
+                &nbsp;&nbsp;&nbsp;&nbsp;<textarea name="{{post[0]}}{{post[1]}}Response" required="required" rows="1" style="resize:vertical; width:100%;" placeholder="Reply to this Post"></textarea>
+            </fieldset>
+        </form>
+        <br>
+    </div>
+    {% endfor %}
   <br><br><br><br><br><br>
 </div>
 

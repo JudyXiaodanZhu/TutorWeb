@@ -11,6 +11,7 @@ exports.getCourse = function(req, res)
     let course = req.url.substring(req.url.indexOf("id=") + "id=".length).trim();
     let username = req.session.user.username;
     let friends = [];
+    let previousPosts = [];
 
     //If admin, get all users as friends.
     if(userType.toLowerCase() == "admin")
@@ -28,12 +29,23 @@ exports.getCourse = function(req, res)
     Course.find(whatToFind, function(err, courses) {
         let enrolled = [];
         for (let i = 0; i < courses.length; i++)
-            enrolled.push({ code : courses[i].code,
+        {
+            enrolled.push({code : courses[i].code,
                           num_posts : courses[i].posts.length,
                           num_tutors : courses[i].tutors.length,
                           num_students : courses[i].students.length});
 
-            let settings = {friends: friends, userType: userType, courses: enrolled, currCourse: course, username: username};
+            if(courses[i].code == course)
+            {
+                for(let x = 0; x < courses[i].posts.length; x++)
+                {
+                    let v = [courses[i].posts[x].author, courses[i].posts[x].text, courses[i].posts[x].responses];
+                    previousPosts.push(v);
+                }
+            }
+        }
+
+            let settings = {friends: friends, userType: userType, courses: enrolled, currCourse: course, username: username, prevPosts: previousPosts};
             res.render("course.html", settings);
 
         });
@@ -104,13 +116,6 @@ exports.addPost = function(req, res)
                    "responses": []}];
     let currID;
     let currPosts;
-    console.log("------------------------------------");
-    console.log("Group - " + groupCode);
-    console.log("Post Text - " + question);
-    console.log("User - " + username);
-    console.log("Type of User - " + userType);
-    console.log("Date - " + currDate);
-    console.log("Time - " + currTime);
 
     getRows(groupCode, newPost, function(err, val)
     {
@@ -120,20 +125,22 @@ exports.addPost = function(req, res)
           }
           else
           {
-              console.log(val[0]);
-              console.log(val[1]);
-              Course.update({_id:val[0]}, {$set: {"posts":val[1]}});
-          }
-
-          console.log("------------------------------------");
-    });
-  /*
-  text: {type: String, required: true},
-  author: {type: String, required: true},
-  date: {type: Date, required: true},
-  time: {type: Date, required: true}
-  responses:
-  */
+              Course.update({_id:val[0]}, {$set:{posts:val[1]}}, function(err, result)
+              {
+                    if(err)
+                    {
+                        console.log("Error: Updating Course Table, at row with _id: " + val[0] + "\n with new posts: " + val[1] + "\n");
+                    }
+                    else
+                    {
+                        console.log("Success: Updating Course Table, at row with _id: " + val[0] + "\n");
+                        let v = __dirname;
+                        v = v.substring(0, v.indexOf('/routes')).trim();
+                        res.redirect(req.url);
+                    }
+              });
+            }
+      });
 }
 
 function getRows(groupCode, newPost, callback)
