@@ -17,8 +17,8 @@ If you want to restore the database, run `./start_db.sh`.
 ## Hosting/Deployment
 ## Purpose
 ## Required list of features
-
  ### User profile, authentication
+ 
    - [Login Page]
     - Users can signup/login by clicking on the buttons on the top right hand side.
     - Authenitcation:
