@@ -3,10 +3,70 @@
 {% block body %}
 <script src="/socket.io/socket.io.js"></script>
 <script>
-  var courseGroupSocket = io();
+  let courseGroupSocket = io();
   courseGroupSocket.on('message', function(data){
-      alert(data.username);
-      alert(data.msg);
+      //alert(data.username);
+      //alert(data.msg);
+
+      let middleDiv = document.getElementById("middle-column");
+
+      let newDiv = document.createElement("div");
+      newDiv.setAttribute("id", data.username + data.msg);
+      newDiv.setAttribute("class", "list-group-item");
+
+      let newForm = document.createElement("form");
+
+      let newFieldset = document.createElement("fieldset");
+
+      let newLegend = document.createElement("legend");
+      newLegend.innerHTML = data.username;
+
+      let newPre = document.createElement("pre");
+      newPre.innerHTML = data.msg;
+
+      let newTextArea = document.createElement("textarea");
+      newTextArea.setAttribute("id", data.username + data.msg + "Response");
+      newTextArea.setAttribute("required", "required");
+      newTextArea.setAttribute("rows", "1");
+      //TODO: Figure out how to set size to be full on new post.
+      newTextArea.setAttribute("width", "auto");
+      newTextArea.setAttribute("style", "resize:vertical;");
+      newTextArea.setAttribute("placeholder", "Reply to this Post");
+
+      let newResponseButton = document.createElement("button");
+      newResponseButton.setAttribute("id", "submitResponse");
+      newResponseButton.setAttribute("name", data.username + data.msg + "ResponseButton");
+      newResponseButton.setAttribute("class", "button");
+      newResponseButton.innerHTML = "Post Response";
+
+      newFieldset.appendChild(newLegend);
+      newFieldset.innerHTML += "<br />";
+      newFieldset.appendChild(newPre);
+      newFieldset.innerHTML += "<br />";
+      newFieldset.appendChild(newTextArea);
+      newFieldset.innerHTML += "<br />";
+      newFieldset.appendChild(newResponseButton);
+      newFieldset.innerHTML += "<br />";
+      newFieldset.innerHTML += "<br />";
+
+      newForm.appendChild(newFieldset);
+      newDiv.appendChild(newForm);
+      middleDiv.appendChild(newDiv);
+
+
+      /*
+      <div id="{{post[0]}}{{post[1]}}" class="list-group-item">
+          <form>
+              <fieldset>
+                <legend>{{post[0]}}</legend>
+                  &nbsp;&nbsp;&nbsp;&nbsp;<pre>{{post[1]}}</pre>
+                  &nbsp;&nbsp;&nbsp;&nbsp;<textarea name="{{post[0]}}{{post[1]}}Response" required="required" rows="1" style="resize:vertical; width:100%;" placeholder="Reply to this Post"></textarea>
+                  <button id="submitResponse" name="{{post[0]}}{{post[1]}}ResponseButton" class="button"><span>Post Response </span></button>
+              </fieldset>
+          </form>
+          <br>
+      </div>
+      */
     });
 </script>
 <form action="/course?id={{currCourse}}" method="post">
@@ -29,7 +89,7 @@
     </div>
 </div>
 
-<div id="middle-column" class="col-sm-6 col-md-6">
+<div id="middle-column" class="col-sm-6 col-md-6" name="middle-column">
 <center><h2>{{currCourse}} Group Page</h2></center><br>
   <h3>Welcome {{username}}</h3>
   <div id="posts-div" class="list-group-item">
@@ -91,14 +151,8 @@
       </style>
       <form action="/course?id={{currCourse}}" method="post">
           <textarea name="textQuestion" rows="7" required="required" style="resize:vertical; width:100%;" placeholder="What question would you like to ask?"></textarea><br><br>
-          <button id="submitPost" name="postButton" onclick="displayNewPost();" class="button" style="vertical-align:middle"><span>Post </span></button>
+          <button id="submitPost" name="postButton" class="button" style="vertical-align:middle"><span>Post </span></button>
       </form>
-      <script>
-          function displayNewPost()
-          {
-                console.log("Displaying new post.");
-          }
-      </script>
   </div>
     {% for post in prevPosts %}
     <div id="{{post[0]}}{{post[1]}}" class="list-group-item">
@@ -107,13 +161,12 @@
               <legend>{{post[0]}}</legend>
                 &nbsp;&nbsp;&nbsp;&nbsp;<pre>{{post[1]}}</pre>
                 &nbsp;&nbsp;&nbsp;&nbsp;<textarea name="{{post[0]}}{{post[1]}}Response" required="required" rows="1" style="resize:vertical; width:100%;" placeholder="Reply to this Post"></textarea>
-                <button id="submitResponse" name="{{post[0]}}{{post[1]}}Response" class="button"><span>Post Response </span></button>
+                <button id="submitResponse" name="{{post[0]}}{{post[1]}}ResponseButton" class="button"><span>Post Response </span></button>
             </fieldset>
         </form>
         <br>
     </div>
     {% endfor %}
-  <br><br><br><br><br><br>
 </div>
 
 <div class="col-sm-3 col-md-3 sidebar">

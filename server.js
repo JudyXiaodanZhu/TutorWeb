@@ -102,9 +102,8 @@ app.post("/course", function(req, res)
                         // let v = __dirname;
                         // v = v.substring(0, v.indexOf('/routes')).trim();
                         // res.redirect(req.url);
-                          console.log(username + ' added new post ' + val[1]);
                           io.emit('message', {username: username, msg: question});
-                          console.log("--------------------------------");
+                          //TODO: Figure out how to stop the response.
                     }
               });
             }
