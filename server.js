@@ -102,8 +102,9 @@ app.post("/course", function(req, res)
                         // let v = __dirname;
                         // v = v.substring(0, v.indexOf('/routes')).trim();
                         // res.redirect(req.url);
-                          io.emit('message', {username: username, msg: question});
-                          //TODO: Figure out how to stop the response.
+                        io.emit('message', {username: username, msg: question});
+                        res.end();
+                                                  //TODO: Figure out how to stop the response.
                     }
               });
             }

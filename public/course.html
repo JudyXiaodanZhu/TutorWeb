@@ -149,7 +149,8 @@
             right: 0;
           }
       </style>
-      <form action="/course?id={{currCourse}}" method="post">
+      <iframe name="hiddenFrame" class="hide"></iframe>
+      <form action="/course?id={{currCourse}}" method="post" target="hiddenFrame">
           <textarea name="textQuestion" rows="7" required="required" style="resize:vertical; width:100%;" placeholder="What question would you like to ask?"></textarea><br><br>
           <button id="submitPost" name="postButton" class="button" style="vertical-align:middle"><span>Post </span></button>
       </form>
