@@ -100,12 +100,10 @@ app.post("/course", function(req, res)
                     else
                     {
                         console.log("Success: Updating Course Table, at row with _id: " + val[0] + "\n");
-                        // let v = __dirname;
-                        // v = v.substring(0, v.indexOf('/routes')).trim();
-                        // res.redirect(req.url);
-                        io.emit('message', {username: username, msg: question});
+
+                        io.emit('message', {username: username, msg: question, cName: groupCode});
                         res.end();
-                                                  //TODO: Figure out how to stop the response.
+
                     }
               });
             }

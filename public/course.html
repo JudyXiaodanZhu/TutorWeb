@@ -5,8 +5,6 @@
 <script>
   let courseGroupSocket = io();
   courseGroupSocket.on('message', function(data){
-      //alert(data.username);
-      //alert(data.msg);
 
       let middleDiv = document.getElementById("middle-column");
 
@@ -24,20 +22,21 @@
       let newPre = document.createElement("pre");
       newPre.innerHTML = data.msg;
 
+      let newSpan = document.createElement("span");
+      newSpan.innerHTML = "Post Response";
+
       let newTextArea = document.createElement("textarea");
       newTextArea.setAttribute("id", data.username + data.msg + "Response");
       newTextArea.setAttribute("required", "required");
       newTextArea.setAttribute("rows", "1");
-      //TODO: Figure out how to set size to be full on new post.
-      newTextArea.setAttribute("width", "auto");
-      newTextArea.setAttribute("style", "resize:vertical;");
+      newTextArea.setAttribute("style", "resize: vertical; width: 100%");
       newTextArea.setAttribute("placeholder", "Reply to this Post");
 
       let newResponseButton = document.createElement("button");
       newResponseButton.setAttribute("id", "submitResponse");
       newResponseButton.setAttribute("name", data.username + data.msg + "ResponseButton");
       newResponseButton.setAttribute("class", "button");
-      newResponseButton.innerHTML = "Post Response";
+      newResponseButton.appendChild(newSpan);
 
       newFieldset.appendChild(newLegend);
       newFieldset.innerHTML += "<br />";
@@ -52,6 +51,30 @@
       newForm.appendChild(newFieldset);
       newDiv.appendChild(newForm);
       middleDiv.appendChild(newDiv);
+
+      let course = document.getElementById("CourseNum-" + data.cName);
+
+      console.log(course.innerHTML);
+
+      let postsNum = course.innerHTML.substring(course.innerHTML.indexOf("Posts"));
+      postsNum = postsNum.substring(0, postsNum.indexOf("<br>"));
+      postsNum = parseInt(postsNum.substring(postsNum.indexOf(":") + 1).trim());
+      postsNum += 1;
+
+      let tutorsNum = course.innerHTML.substring(course.innerHTML.indexOf("Tutors"));
+      tutorsNum = tutorsNum.substring(0, tutorsNum.indexOf("<br>"));
+      tutorsNum = parseInt(tutorsNum.substring(tutorsNum.indexOf(":") + 1).trim());
+
+      let studentsNum = course.innerHTML.substring(course.innerHTML.indexOf("Students"));
+      studentsNum = studentsNum.substring(0, studentsNum.indexOf("<br>"));
+      studentsNum = parseInt(studentsNum.substring(studentsNum.indexOf(":") + 1).trim());
+
+      let newStr = data.cName + "<br>Posts: " + postsNum + "<br>Tutors: " +
+                   tutorsNum + "<br>Students: " + studentsNum + "<br>";
+
+      course.innerHTML = newStr;
+
+      //CourseNum-{{course.code}}
 
 
       /*
@@ -79,7 +102,7 @@
             <center>Courses Enrolled In</center>
         {% endif %}
         {% for course in courses %}
-        <a href="/course?id={{course.code}}" class="list-group-item">
+        <a href="/course?id={{course.code}}", id="CourseNum-{{course.code}}" class="list-group-item">
             {{course.code}}<br>
             Posts: {{course.num_posts}}<br>
             Tutors: {{course.num_tutors}}<br>
