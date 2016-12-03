@@ -102,8 +102,6 @@ app.post("/course/response", function(req, res)
                         else
                         {
                             console.log("Success: Updating Course Table, at row with _id: " + val[0] + "\n");
-                            console.log(result);
-
 
                             //io.emit('message', {username: username, msg: question, cName: groupCode});
                             res.end();

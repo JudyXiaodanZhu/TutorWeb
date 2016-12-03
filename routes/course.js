@@ -56,11 +56,13 @@ exports.getCourse = function(req, res)
     //If not admin get all friends.
     else
     {
+        let userCourses;
         User.find(userType, function(err, users) {
             for (let i = 0; i < users.length; i++)
             {
                 if(users[i].username == username)
                 {
+                    userCourses = users[i].courses;
 
                     //If user has no friends it will add the text below.
                     if(users[i].friends.length == 0)
@@ -88,22 +90,25 @@ exports.getCourse = function(req, res)
                 }
             }
 
-            let whatToFind = req.session.user.type === "admin" ? {} : { code : { $in: req.session.user.courses }};
-            Course.find(whatToFind, function(err, courses) {
+            Course.find(function(err, courses) {
                 let enrolled = [];
+
                 for (let i = 0; i < courses.length; i++)
                 {
-                    enrolled.push({ code : courses[i].code,
-                                  num_posts : courses[i].posts.length,
-                                  num_tutors : courses[i].tutors.length,
-                                  num_students : courses[i].students.length});
-
-                    if(courses[i].code == course)
+                    if(userCourses.indexOf(courses[i].code) != -1)
                     {
-                        for(let x = 0; x < courses[i].posts.length; x++)
+                        enrolled.push({ code : courses[i].code,
+                                      num_posts : courses[i].posts.length,
+                                      num_tutors : courses[i].tutors.length,
+                                      num_students : courses[i].students.length});
+
+                        if(courses[i].code == course)
                         {
-                            let v = [courses[i].posts[x].author, courses[i].posts[x].text, courses[i].posts[x].responses];
-                            previousPosts.push(v);
+                            for(let x = 0; x < courses[i].posts.length; x++)
+                            {
+                                let v = [courses[i].posts[x].author, courses[i].posts[x].text, courses[i].posts[x].responses];
+                                previousPosts.push(v);
+                            }
                         }
                     }
                 }
