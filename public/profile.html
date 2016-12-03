@@ -2,80 +2,112 @@
 
 {% block body %}
     <div class="col-sm-3 col-md-3 sidebar">
-		<div id="courses-div" class="list-group">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <i class="fa fa-tasks fa"></i>
-                        <span>All courses that {{user.username}} is enrolled in:</span><br>
-                </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-tasks fa"></i>
+                <span>All courses that {{user.username}} is enrolled in:</span><br>
+            </div>
 
-                <div class="panel-body">
-                    {% if user.courses.length === 0 %}
-                    {{user.username}} didn't get enrolled in any courses.
+            <div class="panel-body">
+                {% if user.courses.length === 0 %}
+                {{user.username}} didn't get enrolled in any courses.
+                {% endif %}
+                {% for course in user.courses %}
+                <span class="list-group-item">
+                    {{course}}
+                    {% if user.username === session.user.username %}
+                    <a id="remove-course-{{course}}" style="float: right">Remove</a>
                     {% endif %}
-                    {% for course in user.courses %}
-                    <span class="list-group-item">
-                        {{course}}
-                        {% if user.username === session.user.username %}
-                        <a id="remove-course-{{course}}" style="float: right">Remove</a>
-                        {% endif %}
-                    </span>
-                    {% endfor %}
-                </div>
+                </span>
+                {% endfor %}
             </div>
         </div>
     </div>
 
     <div class="col-sm-6 col-md-6">
-        <div id="main-div" class="list-group">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <i class="fa fa-pencil-square-o fa"></i>
-                        <span>All posts that {{user.username}} posted:</span><br>
-                </div>
+        <h3>{{user.username}}</h3>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-pencil-square-o fa"></i>
+                <span>Profile</span>
+                {% if user.username === session.user.username %}
+                <a id="edit" style="float: right">Edit profile</a>
+                {% endif %}
+            </div>
 
-                <div class="panel-body">
-                    {% if posts.length === 0 %}
-                        {{user.username}} didn't post anything.
+            <div class="panel-body">
+                <div class="col-sm-4 col-md-4">
+                    <img class="profile-img" src="img/{{user.picture}}.png" alt="Cannot find"
+                         style="max-width:100%;">
+                    {% if user.username === session.user.username %}
+                    <div id="edit-picture" hidden>
+                        <input id="picture" type="file" value="Upload" style="max-width:100%;">
+                    </div>
                     {% endif %}
-                    {% for post in posts %}
-                    <span class="list-group-item">
-                        Subject: {{post.subject}}<br>
-                        Title: {{post.title}}<br>
-                        Detail: {{post.detail}}<br>
-                        When: {{post.when}}<br>
-                        Date: {{post.date}}
-                        {% if user.username === session.user.username %}
-                        <a id="remove-post-{{post.id}}" style="float: right">Remove</a>
-                        {% endif %}
-                    </span>
-                    {% endfor %}
                 </div>
+                <div class="col-sm-8 col-md-8">
+                    <div id="email">Email:
+                        {% if user.email === "" %}Not set
+                        {% else %}{{user.email}}
+                        {% endif %}
+                    </div>
+                    {% if user.username === session.user.username %}
+                    <div id="edit-form" hidden>
+                        Keep any field empty for no changing.
+                        Email:<br><input type="text"><br>
+                        Password:<br><input type="password"><br>
+                        Confirm password:<br><input type="password"><br>
+                        <button id="edit-submit" class="button"><span>Submit</span></button>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-pencil-square-o fa"></i>
+                <span>All posts that {{user.username}} posted:</span><br>
+            </div>
+
+            <div class="panel-body">
+                {% if posts.length === 0 %}
+                    {{user.username}} didn't post anything.
+                {% endif %}
+                {% for post in posts %}
+                <span class="list-group-item">
+                    Subject: {{post.subject}}<br>
+                    Title: {{post.title}}<br>
+                    Detail: {{post.detail}}<br>
+                    When: {{post.when}}<br>
+                    Date: {{post.date}}
+                    {% if user.username === session.user.username %}
+                    <a id="remove-post-{{post.id}}" style="float: right">Remove</a>
+                    {% endif %}
+                </span>
+                {% endfor %}
             </div>
         </div>
     </div>
 
     <div class="col-sm-3 col-md-3 sidebar">
-		<div id="friends-div" class="list-group">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <i class="fa fa-user"></i>       
-                        <span>All friends that {{user.username}} has:</span><br>
-                </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-user"></i>
+                <span>All friends that {{user.username}} has:</span><br>
+            </div>
 
-                <div class="panel-body">
-                    {% if user.friends.length === 0 %}
-                    {{user.username}} didn't add any friends.
+            <div class="panel-body">
+                {% if user.friends.length === 0 %}
+                {{user.username}} didn't add any friends.
+                {% endif %}
+                {% for friend in user.friends %}
+                <span class="list-group-item">
+                    {{friend}}
+                    {% if user.username === session.user.username %}
+                    <a id="remove-friend-{{friend}}" style="float: right">Remove</a>
                     {% endif %}
-                    {% for friend in user.friends %}
-                    <span class="list-group-item">
-                        {{friend}}
-                        {% if user.username === session.user.username %}
-                        <a id="remove-friend-{{friend}}" style="float: right">Remove</a>
-                        {% endif %}
-                    </span>
-                    {% endfor %}
-                </div>
+                </span>
+                {% endfor %}
             </div>
         </div>
     </div>

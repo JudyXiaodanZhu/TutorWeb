@@ -23,7 +23,7 @@ exports.getDashboard = function(req, res) {
                 friends.push({ username : users[i].username,
                               online : users[i].online});
 
-            let settings = {friends: friends, courses, enrolled, scripts: ["dashboard"]};
+            let settings = {friends: friends, courses, enrolled, scripts: ["dashboard"], styles: ["dashboard"]};
             res.render("dashboard.html", settings);
         });
     });
@@ -48,7 +48,7 @@ exports.postStudentRequest = function(req, res) {
 
 exports.postTutorRequest = function(req, res) {
     if (req.session.user === undefined) return res.redirect("/login");
-    
+
     if(!req.body.subject || !req.body.detail)
         return res.send({status: 1});
 
@@ -56,7 +56,7 @@ exports.postTutorRequest = function(req, res) {
         is_student: false,
         username: req.session.user.username,
         subject: req.body.subject,
-        title: 'none',
+        title: req.body.title,
         range: req.body.range,
         detail: req.body.detail,
         when: 'none',

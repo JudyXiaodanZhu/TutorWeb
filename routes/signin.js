@@ -9,7 +9,7 @@ exports.postNewUser = function(req, res) {
     console.log(req.body);
 
     req.assert('password', 'A student number is required').notEmpty();
-    
+
 
     req.checkBody('password',
                   'Student number not formatted properly.').isPassword();
@@ -19,13 +19,13 @@ exports.postNewUser = function(req, res) {
 
     if (errors) {
         res.send({status:3});
-    } 
+    }
     else{
         if(req.body.password!=req.body.confirmpassword){
             res.send({status:2});
             return;
         }
-        
+
         var newUser = new User({
                     username:req.body.username,
                     password:req.body.password,
@@ -77,6 +77,8 @@ exports.postLogin = function(req, res) {
 };
 
 exports.getLogout = function(req, res) {
+    if (req.session.user === undefined) return res.redirect("/");
+
     User.findOne({ username : req.session.user.username }, function(err, user) {
         if (err) throw err;
 

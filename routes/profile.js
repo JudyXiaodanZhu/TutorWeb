@@ -8,7 +8,7 @@ exports.getProfile = function(req, res) {
         if (err) throw err;
         Post.find({ username : req.query.id }, function(err, posts) {
             if (err) throw err;
-            res.render("profile.html", {user: user, posts: posts, scripts: ["profile"]});
+            res.render("profile.html", {user: user, posts: posts, scripts: ["profile"], styles: ["button"]});
         });
     });
 };
