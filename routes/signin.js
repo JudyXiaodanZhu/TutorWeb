@@ -39,20 +39,15 @@ exports.postNewUser = function(req, res) {
             if (err) throw err;
             if (user) res.json({status: 1});
             else {
-                 newUser.save(function(err, newUser) {
+                newUser.save(function(err, newUser) {
                     if (err) throw err;
-                    console.log("User saved successfully");
+
+                    req.session.user = { username: newUser.username, type: newUser.type };
+                    res.json({status: 0});
                 });
-                let userdata = JSON.parse(JSON.stringify(newUser));
-                console.log(userdata);
-                delete userdata._id;
-                delete userdata.password;
-                req.session.user = userdata;
-                res.json({status: 0});
             }
         });
     }
-
 };
 
 exports.postLogin = function(req, res) {
@@ -65,13 +60,10 @@ exports.postLogin = function(req, res) {
             user.online = true;
             user.save(function(err, data) {
                 if (err) throw err;
+
+                req.session.user = { username: user.username, type: user.type };
+                res.json({status: 0});
             });
-            let userdata = JSON.parse(JSON.stringify(user));
-            console.log(userdata);
-            delete userdata._id;
-            delete userdata.password;
-            req.session.user = userdata;
-            res.json({status: 0});
         }
     });
 };

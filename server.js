@@ -22,7 +22,8 @@ nunjucks.configure('public', { autoescape: true, express: app });
 app.use(express.static(__dirname + '/assets'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session({ secret: 'What is this', resave: false, saveUninitialized: false }));
+app.use(session({ secret: 'What is this', resave: false, saveUninitialized: false,
+                  cookie: { maxAge: 900000 }}));
 app.engine('.html', require('ejs').__express);
 app.set('views', __dirname);
 app.set('view engine', 'html');

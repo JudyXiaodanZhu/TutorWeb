@@ -15,11 +15,11 @@
             </div>
 
             <div class="panel-body">
-                {% if enrolled.length === 0 %}
+                {% if courses.length === 0 %}
                     Search and enroll in a course now!
                 {% endif %}
 
-                {% for course in enrolled %}
+                {% for course in courses %}
                     <a href="/course?id={{course.code}}" class="list-group-item">
                         {{course.code}}<br>
                         Posts: {{course.num_posts}}<br>
@@ -50,7 +50,12 @@
                     <form id="post-form" class="list-group-item">
                          <p>Post a question and connect with tutors.</p>
                         <p>Subject<br>
-                            <input type="text" name="subject" style="width: 100%">
+                            <select name="subject">
+                                <option value="default" selected disabled>PLEASE SELECT</option>
+                                {% for course in courses %}
+                                <option value="{{course.code}}">{{course.code}}</option>
+                                {% endfor %}
+                            </select>
                         </p>
                         <p>Title<br>
                             <input type="text" name="title" style="width: 100%"
@@ -84,7 +89,12 @@
                     <form id="post-form-tut" class="list-group-item">
                         <p>Post an ad and connect with students.</p>
                         <p>Subject<br>
-                            <input type="text" name="subject" style="width: 100%">
+                            <select name="subject" style="width: 100%">
+                                <option value="default" selected disabled>PLEASE SELECT</option>
+                                {% for course in courses %}
+                                <option value="{{course.code}}">{{course.code}}</option>
+                                {% endfor %}
+                            </select>
                         </p>
                         <p>Title<br>
                             <input type="text" name="title" style="width: 100%"
