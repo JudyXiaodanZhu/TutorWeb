@@ -41,6 +41,7 @@ exports.getCourse = function(req, res)
                 {
                     let v = [courses[i].posts[x].author, courses[i].posts[x].text, courses[i].posts[x].responses];
                     previousPosts.push(v);
+                    console.log(v);
                 }
             }
         }
