@@ -32,18 +32,18 @@ If you want to restore the database, run `./start_db.sh`.
 
 * Before users login/signup, the first view they see will be the index page. Users can click on the top left "find tutor" icon to get to this page. When users login and clicks on "find tutor", they will be directed to the dashboard.
 
-![dashboard](proposal/screenshots/student-dash.png)
+![dashboard](proposal/screenshots/student-dash.PNG)
 
 * The dashboard has three main panels. The panel on the left are all the course forums this user added and the panel on the right are all the students and tutors this user connected with. The admin user can see all users and courses on their dashboard.
 * The middle panel for the admin is just instructions to manage users. For students and tutors, the middle panel allows students to post questions regarding a course or allows tutors to post time and prices to meet. 
 
-![course](proposal/screenshots/course.png)
+![course](proposal/screenshots/course.PNG)
 
 * The course forum is a place for students or tutors to post ideas about the course. 
 
 ### User profile, authentication
 
-![Login Page](proposal/screenshots/login.png)
+![Login Page](proposal/screenshots/login.PNG)
 
 Users can signup/login by clicking on the buttons on the top right hand side.
 
@@ -52,22 +52,22 @@ Users can signup/login by clicking on the buttons on the top right hand side.
  * Existing users cannot signup 
  * Non-existing users cannot login
 
-![student profile](proposal/screenshots/profile.png)
+![student profile](proposal/screenshots/profile.PNG)
 
 * Students and tutors can edit their own profile page.
     
 ### Data set
- ![seed](proposal/screenshots/seed.png)
+ ![seed](proposal/screenshots/seed.PNG)
  
 * Sets of data can be retrieved, added, deleted and searched. They can be imported by calling mongoimport, which is included in the 'start_server.sh'.
     
 ### Admin functionality
-![admin-dash](proposal/screenshots/admin-dash.png)
+![admin-dash](proposal/screenshots/admin-dash.PNG)
 
 * Admin users can manage all users and courses. They can see all user profiles, postings and courses.
     
 ### Search 
-![search](proposal/screenshots/search.png)
+![search](proposal/screenshots/search.PNG)
 
 * Users can search for courses and tutors. When they search for courses by course code, the course forum and a list of tutors and their postings for this course will be shown. The user can add the course to the user's main dashboard and click on the course to open the forum. The user can also click on "make friends" with the tutor and add that tutor to the user's main dashboard. 
 * When users search for tutors by name, all postings by that person will be shown.
