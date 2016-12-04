@@ -50,7 +50,7 @@
                     <form id="post-form" class="list-group-item">
                          <p>Post a question and connect with tutors.</p>
                         <p>Subject<br>
-                            <select name="subject">
+                            <select name="subject" style="width: 100%">
                                 <option value="default" selected disabled>PLEASE SELECT</option>
                                 {% for course in courses %}
                                 <option value="{{course.code}}">{{course.code}}</option>

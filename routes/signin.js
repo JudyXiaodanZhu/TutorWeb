@@ -5,49 +5,33 @@ var Course = require("../models/course");
 var express = require('express');
 
 exports.postNewUser = function(req, res) {
-    console.log("New User");
-    console.log(req.body);
-
-    req.assert('password', 'A student number is required').notEmpty();
-
-
-    req.checkBody('password',
-                  'Student number not formatted properly.').isPassword();
-
-    var errors = req.validationErrors();
-    var mappedErrors = req.validationErrors(true);
-
-    if (errors) {
-        res.send({status:3});
+    if (!req.body.password.match(/^\w{6,20}$/)) {
+        return res.send({status:3});
+    } else if (req.body.password != req.body.confirmpassword){
+        return res.send({status:2});
     }
-    else{
-        if(req.body.password!=req.body.confirmpassword){
-            res.send({status:2});
-            return;
+
+    var newUser = new User({
+                username:req.body.username,
+                password:req.body.password,
+                type:req.body.usertype,
+                online:true,
+                courses:null,
+                friends: null
+            });
+
+    User.findOne({ username : req.body.username }, function(err, user) {
+        if (err) throw err;
+        if (user) res.json({status: 1});
+        else {
+            newUser.save(function(err, newUser) {
+                if (err) throw err;
+
+                req.session.user = { username: newUser.username, type: newUser.type };
+                res.json({status: 0});
+            });
         }
-
-        var newUser = new User({
-                    username:req.body.username,
-                    password:req.body.password,
-                    type:req.body.usertype,
-                    online:true,
-                    courses:null,
-                    friends: null
-                });
-
-        User.findOne({ username : req.body.username }, function(err, user) {
-            if (err) throw err;
-            if (user) res.json({status: 1});
-            else {
-                newUser.save(function(err, newUser) {
-                    if (err) throw err;
-
-                    req.session.user = { username: newUser.username, type: newUser.type };
-                    res.json({status: 0});
-                });
-            }
-        });
-    }
+    });
 };
 
 exports.postLogin = function(req, res) {

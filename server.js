@@ -5,9 +5,10 @@ var app = require("express")();
 var bodyParser = require("body-parser");
 var nunjucks = require('nunjucks');
 var session = require('express-session');
-var expressValidator = require('express-validator');
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
+var multer = require('multer');
+var upload = multer({ dest: 'assets/avatars/' });
 
 var course = require("./routes/course");
 var dashboard = require("./routes/dashboard");
@@ -27,14 +28,6 @@ app.use(session({ secret: 'What is this', resave: false, saveUninitialized: fals
 app.engine('.html', require('ejs').__express);
 app.set('views', __dirname);
 app.set('view engine', 'html');
-
-app.use(expressValidator({
-    customValidators: {
-        isPassword: function(value) {
-            return value.search( /[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,20}$/ ) !== -1;
-        },
-    }
-}));
 
 app.use(function(req, res, next) {
     res.locals.session = req.session;
@@ -285,7 +278,7 @@ app.post("/course", function(req, res)
 // Other functions needed in course.js
 
 app.get("/profile", profile.getProfile);// Done
-app.get("/profile", profile.postProfile);// TODO update profile (unclaimed)
+app.post("/profile", upload.single("picture"), profile.postProfile);// TODO update profile (unclaimed)
 app.post("/removeCourse", profile.removeCourse);// Done
 app.post("/removeFriend", profile.removeFriend);// Done
 app.post("/removeTutorPost", profile.removeTutorPost);// Done
