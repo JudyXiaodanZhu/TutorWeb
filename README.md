@@ -61,7 +61,7 @@ Users can signup/login by clicking on the buttons on the top right hand corner o
 * Students and tutors can edit their own profile page. They can add email, change password, and add an introdution paragraph.
     
 ### Data set
- ![seed](proposal/screenshots/seed.PNG)
+ ![seed](proposal/screenshots/seeds.PNG)
  
 * Sets of data can be added, deleted, edited and searched. They can be imported by calling mongoimport, which are included in the 'start_server.sh'.
     
