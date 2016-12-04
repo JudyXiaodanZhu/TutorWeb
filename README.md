@@ -60,6 +60,7 @@ Users can signup/login by clicking on the buttons on the top right hand corner o
  * Existing users cannot signup 
  * Non-existing users cannot login
 <br><br>
+
 #### Student Profile
 ![student profile](proposal/screenshots/profile1.PNG)
 
@@ -67,7 +68,7 @@ Users can signup/login by clicking on the buttons on the top right hand corner o
     
 ### Data set
 #### Seed
- ![seed](proposal/screenshots/seeds.PNG)
+![seed](proposal/screenshots/seeds.PNG)
  
 * Sets of data can be added, deleted, edited and searched. They can be imported by calling mongoimport, which are included in the 'start_server.sh'.
  <br><br>
