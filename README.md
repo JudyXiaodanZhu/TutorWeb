@@ -1,4 +1,4 @@
-# JackZZZ Title - Find Tutor
+# JackZZZ - Find Tutor
 
 ## Introduction
 
