@@ -8,11 +8,9 @@
 
 * Users: In theory, the target users should be all students from U of T. However, for the purpose of demonstration, the users for this Application will be U of T Computer Science students.
 
-* What users can do: There are three different types of users: Admin, Tutor and Student. On a high level, users can use the website to chat 1-on-1 with other users, post thoughts about courses and search for tutors for courses.
-
 ## Hosting/Deployment
 
-To get server functioning:
+To get the server functioning:
 
 1. Make sure <a href=https://docs.mongodb.com/manual/installation/?jmp=footer>MongoDB Community edition</a> is installed
 
