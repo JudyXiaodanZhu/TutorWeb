@@ -1,4 +1,4 @@
-# JackZZZ Project Title - Find Tutor
+# JackZZZ Title - Find Tutor
 
 ## Introduction
 
@@ -31,6 +31,7 @@ If you want to restore the database, run `./start_db.sh`.
 ![index](proposal/screenshots/index.PNG)
 
 * Before users login/signup, the first view they see will be the index page. Users can click on the top left "find tutor" icon to get to this page. When users login and clicks on "find tutor", they will be directed to the dashboard.
+* Before users login, the buttons on the navigation bar are "find tutor", "login" and "signup". When users login, the buttons will be "find tutor", "dashboard", "profile" and "logout".
 
 ![dashboard](proposal/screenshots/student-dash.PNG)
 
@@ -41,25 +42,30 @@ If you want to restore the database, run `./start_db.sh`.
 
 * The course forum is a place for students or tutors to post ideas about the course. 
 
+![profile](proposal/screenshots/profile.PNG)
+
+* The profile includes all courses, friends and posts that one user has. Users can view the profiles of other users.
+
+
 ### User profile, authentication
 
 ![Login Page](proposal/screenshots/login.PNG)
 
-Users can signup/login by clicking on the buttons on the top right hand side.
+Users can signup/login by clicking on the buttons on the top right hand corner of the navigation bar.
 
 * Authentication:
  * Passwords musts be 6-20 characters long
  * Existing users cannot signup 
  * Non-existing users cannot login
 
-![student profile](proposal/screenshots/profile.PNG)
+![student profile](proposal/screenshots/profile1.PNG)
 
-* Students and tutors can edit their own profile page.
+* Students and tutors can edit their own profile page. They can add email, change password, and add an introdution paragraph.
     
 ### Data set
  ![seed](proposal/screenshots/seed.PNG)
  
-* Sets of data can be retrieved, added, deleted and searched. They can be imported by calling mongoimport, which is included in the 'start_server.sh'.
+* Sets of data can be added, deleted, edited and searched. They can be imported by calling mongoimport, which are included in the 'start_server.sh'.
     
 ### Admin functionality
 ![admin-dash](proposal/screenshots/admin-dash.PNG)
