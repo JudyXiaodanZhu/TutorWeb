@@ -418,27 +418,3 @@ img::-moz-selection {
 body {
   webkit-tap-highlight-color: #222222;
 }
-
-/* Added by Raymond: mild change of styles of search.html*/
-.friended{
-    color:green;
-}
-
-.courseAdded{
-    color:green;
-}
-
-.foundMessage{
-    /* css of found message */
-    font-size:100%;
-    color:red;
-}
-
-.statusReminder{
-    font-size:100%;
-    color:grey;
-}
-
-.userNameAfterSearch{
-    color:purple;
-}

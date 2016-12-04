@@ -1,20 +1,20 @@
 'use strict';
 
 var signin = {};
-var today = new Date();
-var expiry = new Date(today.getTime() + 30 * 24 * 3600 * 1000); // plus 30 days
 
 signin.init = function() {
     $("#login-form").submit(function(event) {
         event.preventDefault();
-        
+
         if ($("#remember").is(":checked")){
             $.cookie("username", $("#username").val() , {expires: 7});
             $.cookie("password", $("#password").val() , {expires: 7});
+            $.cookie("remember", $("#remember").prop("checked") , {expires: 7});
         }
         else{
             $.cookie("username",'');
             $.cookie("password",'');
+            $.cookie("remember", false);
         }
 
         let json_raw = $(this).serializeArray();
@@ -29,11 +29,12 @@ signin.init = function() {
             else if (status === 0) {
                 window.location = "/dashboard";
             }
-        })
+        });
     });
 
-    $("#username").val( $.cookie("username"));
-    $("#password").val( $.cookie("password"));
+    $("#username").val($.cookie("username"));
+    $("#password").val($.cookie("password"));
+    $("#remember").prop("checked", $.cookie("remember") === "true");
 }
 
 $(document).ready(function() {

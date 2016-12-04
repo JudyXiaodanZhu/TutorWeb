@@ -1,13 +1,11 @@
 {% extends "base.html" %}
 
 {% block body %}
-
-
- {% if session.user %} 
-    {% else %}
-
+    {% if session.user %}
+    <script>window.location = "dashboard";</script>
+    {% endif %}
     <header>
-   <div class="header-content">
+        <div class="header-content">
             <div class="header-content-inner">
                 <h1 id="homeHeading">FIND TUTOR <br>
                 </h1>
@@ -18,6 +16,5 @@
             </div>
         </div>
     </header>
-{% endif %}
-{% endblock %}
 
+{% endblock %}

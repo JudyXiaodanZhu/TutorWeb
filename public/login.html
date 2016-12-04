@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block body %}
+    {% if session.user %}
+    <script>window.location = "dashboard";</script>
+    {% endif %}
     <div class="container">
         <div class="row">
             <div>
@@ -18,10 +21,9 @@
                             <input type="checkbox" id= "remember" name="remember" value="remember-me">Remember me
                         </label>
                         <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
-                        <a href="#" type = "new-account" class="text-center new-account">Create an account >> </a>
+                        <a href="signup" type = "new-account" class="text-center new-account">Create an account >> </a>
                     </form>
                 </div>
-                
             </div>
         </div>
     </div>
@@ -34,8 +36,8 @@
         "; path=/; expires=" + expiry.toGMTString();
         console.log(cookie);
     }
-    
-     
+
+
 
     </script>
 

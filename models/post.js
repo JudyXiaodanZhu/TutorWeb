@@ -12,8 +12,7 @@ var postSchema = new Schema(
         range: {type:  Number, required: true},
         detail: {type: String, required: true},
         when: {type: String, required: true},
-        date: {type: Date, required: true},
-        email: {type: String, required:true}
+        date: {type: Date, required: true}
     },
     {
         collection: 'posts'

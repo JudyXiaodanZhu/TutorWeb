@@ -11,9 +11,8 @@ dashboard.init = function() {
         event.preventDefault();
         let json_raw = $(this).serializeArray();
         let json_submit = {};
-        for (let i = 0; i < json_raw.length; i++) {
+        for (let i = 0; i < json_raw.length; i++)
             json_submit[json_raw[i].name] = json_raw[i].value;
-        }
         $.post("/postStudentRequest", json_submit, function(result) {
             let status = result.status;
             if (status === 1) $("#form-feedback").text("Form incomplete");
@@ -28,11 +27,8 @@ dashboard.init = function() {
         event.preventDefault();
         let json_raw = $(this).serializeArray();
         let json_submit = {};
-        for (let i = 0; i < json_raw.length; i++) {
+        for (let i = 0; i < json_raw.length; i++)
             json_submit[json_raw[i].name] = json_raw[i].value;
-            console.log(json_raw[i].value);
-        }
-
         $.post("/postTutorRequest", json_submit, function(result) {
             let status = result.status;
             if (status === 1) $("#form-feedback").text("Form incomplete");

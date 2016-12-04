@@ -9,6 +9,9 @@ var userSchema = new Schema(
         password: {
             type: String, requried: true
         },
+        email: {type: String, default: ""},
+        picture: {type: String, default: "default.png"},
+        bio: {type: String, default: ""},
         type: {
             type: String, requried: true
         },
