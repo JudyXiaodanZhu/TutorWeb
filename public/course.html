@@ -12,9 +12,19 @@
       newDiv.setAttribute("id", data.username + data.msg);
       newDiv.setAttribute("class", "list-group-item");
 
+      let newiFrame = document.createElement("iframe");
+      newiFrame.setAttribute("name", "hiddenFrame");
+      newiFrame.setAttribute("class", "hide");
+
       let newForm = document.createElement("form");
 
+      //<form action="/course/response?/id={{currCourse}}" method="post" target="hiddenFrame">
+      newForm.setAttribute("action", "/course/response?/id=" + data.cName);
+      newForm.setAttribute("method", "post");
+      newForm.setAttribute("target", "hiddenFrame");
+
       let newFieldset = document.createElement("fieldset");
+      newFieldset.setAttribute("id", data.username + data.msg + "Fieldset");
 
       let newLegend = document.createElement("legend");
       newLegend.innerHTML = data.username;
@@ -26,7 +36,8 @@
       newSpan.innerHTML = "Post Response";
 
       let newTextArea = document.createElement("textarea");
-      newTextArea.setAttribute("id", data.username + data.msg + "Response");
+      newTextArea.setAttribute("id", data.username + "|" + data.msg + "|" + "Response");
+      newTextArea.setAttribute("name", data.username + "|" + data.msg + "|" + "Response");
       newTextArea.setAttribute("required", "required");
       newTextArea.setAttribute("rows", "1");
       newTextArea.setAttribute("style", "resize: vertical; width: 100%");
@@ -34,7 +45,7 @@
 
       let newResponseButton = document.createElement("button");
       newResponseButton.setAttribute("id", "submitResponse");
-      newResponseButton.setAttribute("name", data.username + data.msg + "ResponseButton");
+      newResponseButton.setAttribute("name", data.username + "|" + data.msg + "|" + "ResponseButton");
       newResponseButton.setAttribute("class", "button");
       newResponseButton.appendChild(newSpan);
 
@@ -49,6 +60,7 @@
       newFieldset.innerHTML += "<br />";
 
       newForm.appendChild(newFieldset);
+      newDiv.appendChild(newiFrame);
       newDiv.appendChild(newForm);
       middleDiv.appendChild(newDiv);
 
@@ -71,6 +83,12 @@
                    tutorsNum + "<br>Students: " + studentsNum + "<br>";
 
       course.innerHTML = newStr;
+
+      document.getElementById("textQuestion").value = "";
+    });
+
+    courseGroupSocket.on('Duplicate Post', function(data){
+          document.getElementById("textQuestion").value = "";
     });
 
     courseGroupSocket.on('responseMessage', function(data){
@@ -80,7 +98,6 @@
 
         if(data.responsesLength == 0)
         {
-            //<legend><font size="3">Responses</font></legend>
             let fo = document.createElement("font");
             fo.setAttribute("size", "3");
             fo.innerHTML = "<br />Responses";
@@ -93,6 +110,8 @@
 
         p.setAttribute("style", "margin: 1em 5em;");
         p.innerHTML = data.response;
+
+        document.getElementById(data.user + "|" + data.text + "|" + "Response").value = "";
 
         f.appendChild(p);
     });
@@ -179,18 +198,18 @@
       </style>
       <iframe name="hiddenFrame" class="hide"></iframe>
       <form action="/course?id={{currCourse}}" method="post" target="hiddenFrame">
-          <textarea name="textQuestion" rows="7" required="required" style="resize:vertical; width:100%;" placeholder="What question would you like to ask?"></textarea><br><br>
+          <textarea id="textQuestion" name="textQuestion" rows="7" required="required" style="resize:vertical; width:100%;" placeholder="What question would you like to ask?"></textarea><br><br>
           <button id="submitPost" name="postButton" class="button" style="vertical-align:middle"><span>Post </span></button>
       </form>
   </div>
     {% for post in prevPosts %}
     <div id="{{post[0]}}{{post[1]}}" class="list-group-item">
         <iframe name="hiddenFrame" class="hide"></iframe>
-        <form action="/course/response?/id={{currCourse}}" method="post" target"hiddenFrame">
+        <form action="/course/response?/id={{currCourse}}" method="post" target="hiddenFrame">
             <fieldset id="{{post[0]}}{{post[1]}}Fieldset">
               <legend>{{post[0]}}</legend>
                 &nbsp;&nbsp;&nbsp;&nbsp;<pre>{{post[1]}}</pre>
-                &nbsp;&nbsp;&nbsp;&nbsp;<textarea name="{{post[0]}}|{{post[1]}}|Response" required="required" rows="1" style="resize:vertical; width:100%;" placeholder="Reply to this Post"></textarea>
+                &nbsp;&nbsp;&nbsp;&nbsp;<textarea id="{post[0]}}|{{post[1]}}|Response" name="{{post[0]}}|{{post[1]}}|Response" required="required" rows="1" style="resize:vertical; width:100%;" placeholder="Reply to this Post"></textarea>
                 <button id="submitResponse" name="{{post[0]}}|{{post[1]}}|ResponseButton" class="button"><span>Post Response </span></button>
                 {% if post[2].length != 0 %}
                     <br><br>

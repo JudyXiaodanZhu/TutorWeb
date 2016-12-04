@@ -96,13 +96,8 @@ app.post("/course/response", function(req, res)
                         }
                         else
                         {
-                            console.log("Success: Updating Course Table, at row with _id: " + val[0] + "\n");
-
-                              //let postUser, postText, postResponse;
-
                             io.emit('responseMessage', {user: postUser, text: postText, response: postResponse, responsesLength: val[2]});
                             res.end();
-
                         }
                   });
 
@@ -186,13 +181,18 @@ app.post("/course", function(req, res)
                     {
                         console.log("Error: Updating Course Table, at row with _id: " + val[0] + "\n with new posts: " + val[1] + "\n");
                     }
-                    else
+                    else if(val.length > 0)
                     {
                         console.log("Success: Updating Course Table, at row with _id: " + val[0] + "\n");
 
                         io.emit('message', {username: username, msg: question, cName: groupCode});
                         res.end();
 
+                    }
+                    else
+                    {
+                        io.emit('Duplicate Post', {});
+                        res.end();
                     }
               });
             }
@@ -210,6 +210,7 @@ app.post("/course", function(req, res)
           {
               let currID;
               let currPosts;
+              let notDuplicate = true;
               for(let i = 0; i < cursor.length; i++)
               {
                   if(cursor[i].code.toLowerCase() == groupCode.toLowerCase())
@@ -219,13 +220,31 @@ app.post("/course", function(req, res)
                       break;
                   }
               }
-              let p = [];
+
               for(let i = 0; i < currPosts.length; i++)
               {
-                  p.push(currPosts[i]);
+                  if(newPost[0].author == currPosts[i].author &&
+                     newPost[0].text == currPosts[i].text)
+                     {
+                          notDuplicate = false;
+                          break;
+                     }
               }
-              p.push(newPost[0]);
-              callback(null, [currID, p]);
+
+              if(notDuplicate)
+              {
+                  let p = [];
+                  for(let i = 0; i < currPosts.length; i++)
+                  {
+                      p.push(currPosts[i]);
+                  }
+                  p.push(newPost[0]);
+                  callback(null, [currID, p]);
+              }
+              else
+              {
+                  callback(null, []);
+              }
           }
         });
       }
