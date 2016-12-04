@@ -31,23 +31,22 @@ If you want to restore the database, run `./start_db.sh`.
 
 * Before users login/signup, the first view they see will be the index page. Users can click on the top left "find tutor" icon to get to this page. When users login and clicks on "find tutor", they will be directed to the dashboard.
 * Before users login, the buttons on the navigation bar are "find tutor", "login" and "signup". When users login, the buttons will be "find tutor", "dashboard", "profile" and "logout".
-<br><br>
+
 #### Dashboard
 ![dashboard](proposal/screenshots/student-dash.PNG)
 
 * The dashboard has three main panels. The panel on the left are all the course forums this user added and the panel on the right are all the students and tutors this user connected with. The admin user can see all users and courses on their dashboard.
 * The middle panel for the admin is just instructions to manage users. For students and tutors, the middle panel allows students to post questions regarding a course or allows tutors to post time and prices to meet. 
-<br><br>
+
 #### Course
 ![course](proposal/screenshots/course.PNG)
 
 * The course forum is a place for students or tutors to post ideas about the course. 
-<br><br>
+
 #### Profile
 ![profile](proposal/screenshots/profile.PNG)
 
 * The profile includes all courses, friends and posts that one user has. Users can view the profiles of other users.
-<br><br>
 
 ### User profile, authentication
 #### Login
@@ -59,7 +58,6 @@ Users can signup/login by clicking on the buttons on the top right hand corner o
  * Passwords musts be 6-20 characters long
  * Existing users cannot signup 
  * Non-existing users cannot login
-<br><br>
 
 #### Student Profile
 ![student profile](proposal/screenshots/profile1.PNG)
@@ -71,13 +69,13 @@ Users can signup/login by clicking on the buttons on the top right hand corner o
 ![seed](proposal/screenshots/seeds.PNG)
  
 * Sets of data can be added, deleted, edited and searched. They can be imported by calling mongoimport, which are included in the 'start_server.sh'.
- <br><br>
+ 
 ### Admin functionality
 #### Admin dashboard
 ![admin-dash](proposal/screenshots/admin-dash.PNG)
 
 * Admin users can manage all users and courses. They can see all user profiles, postings and courses.
-<br><br>
+
 ### Search 
 #### Search
 ![search](proposal/screenshots/search.PNG)
