@@ -54,8 +54,6 @@
 
       let course = document.getElementById("CourseNum-" + data.cName);
 
-      console.log(course.innerHTML);
-
       let postsNum = course.innerHTML.substring(course.innerHTML.indexOf("Posts"));
       postsNum = postsNum.substring(0, postsNum.indexOf("<br>"));
       postsNum = parseInt(postsNum.substring(postsNum.indexOf(":") + 1).trim());
@@ -73,6 +71,30 @@
                    tutorsNum + "<br>Students: " + studentsNum + "<br>";
 
       course.innerHTML = newStr;
+    });
+
+    courseGroupSocket.on('responseMessage', function(data){
+
+        let f = document.getElementById(data.user + data.text + "Fieldset");
+        let p = document.createElement("pre");
+
+        if(data.responsesLength == 0)
+        {
+            //<legend><font size="3">Responses</font></legend>
+            let fo = document.createElement("font");
+            fo.setAttribute("size", "3");
+            fo.innerHTML = "<br />Responses";
+
+            let l = document.createElement("legend");
+
+            l.appendChild(fo);
+            f.appendChild(l);
+        }
+
+        p.setAttribute("style", "margin: 1em 5em;");
+        p.innerHTML = data.response;
+
+        f.appendChild(p);
     });
 </script>
 <form action="/course?id={{currCourse}}" method="post">
@@ -163,20 +185,19 @@
   </div>
     {% for post in prevPosts %}
     <div id="{{post[0]}}{{post[1]}}" class="list-group-item">
+        <iframe name="hiddenFrame" class="hide"></iframe>
         <form action="/course/response?/id={{currCourse}}" method="post" target"hiddenFrame">
-            <fieldset>
+            <fieldset id="{{post[0]}}{{post[1]}}Fieldset">
               <legend>{{post[0]}}</legend>
                 &nbsp;&nbsp;&nbsp;&nbsp;<pre>{{post[1]}}</pre>
                 &nbsp;&nbsp;&nbsp;&nbsp;<textarea name="{{post[0]}}|{{post[1]}}|Response" required="required" rows="1" style="resize:vertical; width:100%;" placeholder="Reply to this Post"></textarea>
                 <button id="submitResponse" name="{{post[0]}}|{{post[1]}}|ResponseButton" class="button"><span>Post Response </span></button>
                 {% if post[2].length != 0 %}
                     <br><br>
-                    <div id="{{post[0]}}{{post[1]}}Responses" class="list-group-item">
-                        <legend>Responses</legend>
+                        <legend><font size="3">Responses</font></legend>
                         {% for resp in post[2] %}
-                            <pre>&nbsp;&nbsp;&nbsp;&nbsp;{{resp.text}}</pre>
+                            <pre style="margin: 1em 5em;">{{resp.text}}</pre>
                         {% endfor %}
-                    </div>
                 {% endif %}
             </fieldset>
         </form>

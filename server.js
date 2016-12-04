@@ -73,6 +73,9 @@ app.get("/course", course.getCourse);
 app.post("/course/response", function(req, res)
 {
     let postUser, postText, postResponse;
+    let url = req.url;
+    url = url.substring(url.indexOf("id=") + "id=".length).trim();
+
     for(let i in req.body)
     {
         postUser = i.substring(0, i.indexOf("|")).trim();
@@ -92,7 +95,6 @@ app.post("/course/response", function(req, res)
               }
               else
               {
-                //b.test_invoice.update({user_id : 123456 , "items.item_name":"my_item_one"} , {$inc: {"items.$.price": 10}})
                   Course.update({_id:val[0]}, {$set:{posts:val[1]}}, function(err, result)
                   {
                         if(err)
@@ -103,7 +105,9 @@ app.post("/course/response", function(req, res)
                         {
                             console.log("Success: Updating Course Table, at row with _id: " + val[0] + "\n");
 
-                            //io.emit('message', {username: username, msg: question, cName: groupCode});
+                              //let postUser, postText, postResponse;
+
+                            io.emit('responseMessage', {user: postUser, text: postText, response: postResponse, responsesLength: val[2]});
                             res.end();
 
                         }
@@ -135,6 +139,7 @@ app.post("/course/response", function(req, res)
             }
 
             let p = [];
+            let responsesLength;
             for(let i = 0; i < currPosts.length; i++)
             {
                 p.push(currPosts[i]);
@@ -150,11 +155,12 @@ app.post("/course/response", function(req, res)
                     {
                         r.push(p[i].responses[x]);
                     }
+                    responsesLength = p[i].responses.length;
                     r.push(newResponse[0]);
                     p[i].responses = r;
                 }
             }
-            callback(null, [currID, p]);
+            callback(null, [currID, p, responsesLength]);
         }
       });
     }
