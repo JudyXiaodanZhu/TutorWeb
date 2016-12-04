@@ -1,17 +1,18 @@
 # JackZZZ Project Title - Find Tutor
 
 ## Introduction
-Topic: Tutor Website for U of T students.
 
-Purpose: Allow students to connect with other students (tutors) in order to get help for courses they are enrolled in.
+* Topic: Tutor Website for U of T students.
 
-Users: In theory, the target users should be all students from U of T. However, for the purpose of demonstration, the users for this Application will be U of T Computer Science students.
+* Purpose: Allow students to connect with other students (tutors) in order to get help for courses they are enrolled in.
 
-What users can do: There are three different types of users: Admin, Tutor and Student. On a high level, users can use the website to chat 1-on-1 with other users, post thoughts about courses and search for tutors for courses.
+* Users: In theory, the target users should be all students from U of T. However, for the purpose of demonstration, the users for this Application will be U of T Computer Science students.
+
+* What users can do: There are three different types of users: Admin, Tutor and Student. On a high level, users can use the website to chat 1-on-1 with other users, post thoughts about courses and search for tutors for courses.
 
 ## Hosting/Deployment
 
-To get server function:
+To get server functioning:
 
 1. Make sure <a href=https://docs.mongodb.com/manual/installation/?jmp=footer>MongoDB Community edition</a> is installed
 
@@ -27,7 +28,7 @@ If you want to restore the database, run `./start_db.sh`.
 ## Required list of features
 
 ### Different views
-![index](proposal/screenshots/index.png)
+![index](proposal/screenshots/index.PNG)
 
 * Before users login/signup, the first view they see will be the index page. Users can click on the top left "find tutor" icon to get to this page. When users login and clicks on "find tutor", they will be directed to the dashboard.
 
