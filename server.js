@@ -42,7 +42,7 @@ app.get("/signup", function(req, res) { // Done
     res.render("signup.html", { scripts: ["signin"], styles: ["signin"] });
 });
 
-app.get("/login", function(req, res) { // TODO Remember me function (unclaimed)
+app.get("/login", function(req, res) { // Done
     res.render("login.html", { scripts: ["login"], styles: ["signin"] });
 });
 
@@ -50,15 +50,15 @@ app.get('/logout', signin.getLogout);// Done
 app.post("/signup", signin.postNewUser);// Done
 app.post("/login", signin.postLogin); // Done
 
-app.get("/dashboard", dashboard.getDashboard);// TODO implement public/dashboard.html (Tutor part) (Judy)
+app.get("/dashboard", dashboard.getDashboard);// Done
 app.post("/postStudentRequest", dashboard.postStudentRequest);// Done
 app.post("/postTutorRequest", dashboard.postTutorRequest);// Done
 
 
 //Raymond Begins
-app.get('/search', search.getSearch);// TODO Search can be improved
-app.post('/makeFriends', search.makeFriends); //TODO Add feedback
-app.post('/addCourse', search.addCourse);// TODO Add feedback
+app.get('/search', search.getSearch);// Done
+app.post('/makeFriends', search.makeFriends); //Done
+app.post('/addCourse', search.addCourse);// Done
 // Other functions needed in search.js
 //Raymond Ends..
 
@@ -297,7 +297,7 @@ app.post("/course", function(req, res)
 // Other functions needed in course.js
 
 app.get("/profile", profile.getProfile);// Done
-app.post("/profile", upload.single("picture"), profile.postProfile);// TODO update profile (unclaimed)
+app.post("/profile", upload.single("picture"), profile.postProfile);// Done
 app.post("/removeCourse", profile.removeCourse);// Done
 app.post("/removeFriend", profile.removeFriend);// Done
 app.post("/removeTutorPost", profile.removeTutorPost);// Done

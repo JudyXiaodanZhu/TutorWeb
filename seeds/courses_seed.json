@@ -57,11 +57,6 @@
         "students":[]
     },
     {
-        "code":"GGR373",
-        "tutors":["Jimmy"],
-        "students":[]
-    },
-    {
         "code": "CSC120",
         "students":[],
         "tutors":[]
