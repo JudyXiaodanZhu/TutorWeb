@@ -86,6 +86,8 @@ Users can signup/login by clicking on the buttons on the top right hand corner o
 <br><br>
 
 ## Notable/Creative features
+
   * nunjucks: HTML template
   * socket.io: real-time update
   * multer: upload files
+  * search field: smart search 
