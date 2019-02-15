@@ -12,7 +12,7 @@
 
 To get the server functioning:
 
-1. Make sure <a href=https://docs.mongodb.com/manual/installation/?jmp=footer>MongoDB Community edition</a> is installed
+1. Make sure <a href=https://docs.mongodb.com/manual/installation/?jmp=footer> MongoDB Community edition</a> is installed
 
 2. In terminal, cd into the cloned project directory
 
