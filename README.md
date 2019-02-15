@@ -12,9 +12,9 @@
 
 To get the server functioning:
 
-1. Make sure <a href=https://docs.mongodb.com/manual/installation/?jmp=footer> MongoDB Community edition</a> is installed
+1. Make sure <a href=https://docs.mongodb.com/manual/installation/?jmp=footer> MongoDB Community edition</a> is installed.
 
-2. In terminal, cd into the cloned project directory
+2. In terminal, cd into the cloned project directory.
 
 3. Run `./start_db.sh`.
 
@@ -29,14 +29,16 @@ If you want to restore the database, run `./start_db.sh`.
 #### Index
 ![index](proposal/screenshots/index.PNG)
 
-* Before users login/signup, the first view they see will be the index page. Users can click on the top left "find tutor" icon to get to this page. When users login and clicks on "find tutor", they will be directed to the dashboard.
-* Before users login, the buttons on the navigation bar are "find tutor", "login" and "signup". When users login, the buttons will be "find tutor", "dashboard", "profile" and "logout".
+* Before users login/signup, the first view they see will be the index page. 
+* Buttons on the navigation bar are "find tutor", "login" and "signup". When user are logged on, the buttons will be "find tutor", "dashboard", "profile" and "logout".
 
 #### Dashboard
 ![dashboard](proposal/screenshots/student-dash.PNG)
 
-* The dashboard has three main panels. The panel on the left are all the course forums this user added and the panel on the right are all the students and tutors this user connected with. The admin user can see all users and courses on their dashboard.
-* The middle panel for the admin is just instructions to manage users. For students and tutors, the middle panel allows students to post questions regarding a course or allows tutors to post time and prices to meet.
+* The dashboard has three main panels. 
+* The panel on the left are all the course forums this user added and the panel 
+* The right panel are all the students and tutors this user connected with. The admin user can see all users and courses on their dashboard.
+* The middle panel for the admin are instructions to manage users. For students and tutors, the middle panel allows students to post questions regarding a course or allows tutors to post time and prices to meet.
 
 #### Course
 ![course](proposal/screenshots/course.PNG)
@@ -55,9 +57,9 @@ If you want to restore the database, run `./start_db.sh`.
 Users can signup/login by clicking on the buttons on the top right hand corner of the navigation bar.
 
 * Authentication:
- * Passwords musts be 6-20 characters long
- * Existing users cannot signup
- * Non-existing users cannot login
+  * Passwords musts be 6-20 characters long
+  * Existing users cannot signup
+  * Non-existing users cannot login
 
 #### Student Profile
 ![student profile](proposal/screenshots/profile1.PNG)
@@ -82,7 +84,7 @@ Users can signup/login by clicking on the buttons on the top right hand corner o
 
 * Users can search for courses and tutors. When they search for courses by course code, the course forum and a list of tutors and their postings for this course will be shown. The user can add the course to the user's main dashboard and click on the course to open the forum. The user can also click on "make friends" with the tutor and add that tutor to the user's main dashboard.
 * When users search for tutors by name, all postings by that person will be shown.
-* If you are logged in as an Admin, all postings by both students and tutors will be shown.
+* If users are logged in as an Admin, all postings by both students and tutors will be shown.
 <br><br>
 
 ## Notable/Creative features
